@@ -1,2 +1,22 @@
-# harei.cn
-花礼的小网站
+# 花礼harei的小网站
+
+### 说明
+这是我心血来潮在一个下午写完的小网站项目，代码可能不太完美
+已配置公网可直接访问，手机或电脑浏览器输入harei.cn即可
+如果发现错误或有改进建议，欢迎提Issue，或者直接在[B站](https://space.bilibili.com/351708822)私信我
+
+### 运行步骤
+
+1. 克隆仓库：
+   `git clone https://github.com/QianQiuZy/harei.cn`
+
+2. 配置环境：
+   `pip install flask pillow`
+
+3. 运作项目：
+   `python app.py`
+
+### 作者主页
+
+[千秋紫莹的B站](https://space.bilibili.com/351708822)
+
