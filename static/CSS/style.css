@@ -1,23 +1,22 @@
 .profile-header {
-    display: flex; /* 使用flexbox布局 */
-    align-items: center; /* 垂直居中 */
+    display: flex;
+    align-items: center;
 }
 
 .profile-header img.avatar {
-    width: 80px; /* 调整头像大小 */
-    height: 80px; /* 调整头像大小 */
-    border-radius: 50%; /* 头像圆形 */
-    margin-right: 20px; /* 与名字的间距 */
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    margin-right: 20px;
 }
 
 .profile-header h1 {
-    margin: 0; /* 去掉默认的外边距 */
+    margin: 0;
 }
 
-/* 分隔线样式 */
 hr {
-    margin: 20px 0; /* 上下留出空间 */
-    border: 0; /* 取消默认边框 */
-    height: 1px; /* 高度 */
-    background-color: #ccc; /* 横线颜色 */
+    margin: 20px 0;
+    border: 0;
+    height: 1px;
+    background-color: #ccc;
 }
