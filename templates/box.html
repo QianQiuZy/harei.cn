@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="{{ url_for('static', filename='pic/32x32.png') }}" sizes="32x32" type="image/png">
+    <link rel="icon" href="{{ url_for('static', filename='pic/16x16.png') }}" sizes="16x16" type="image/png">
+    <link rel="stylesheet" href="{{ url_for('static', filename='CSS/sidebar.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='CSS/box.css') }}">
+    <title>花礼的提问箱</title>
+</head>
+<body>
+    <div id="overlay" class="overlay"></div>
+    <div class="background-layer" style="background-image: url('https://qianqiuzy-1313476938.cos.ap-shanghai.myqcloud.com/harei-back.jpg');"></div>
+    <div class="sidebar" id="sidebar">
+        <div class="menu-icon" onclick="toggleMenu()">☰</div>
+        <div class="icon-group">
+            <a class="icon-item" href="/">
+                <img src="/static/pic/home.png" alt="Home">
+                <span class="icon-text">首页</span>
+            </a>
+            <a class="icon-item" href="/songs">
+                <img src="/static/pic/music.png" alt="Songs">
+                <span class="icon-text">歌单</span>
+            </a>
+            <a class="icon-item" href="/box">
+                <img src="/static/pic/box.png" alt="Box">
+                <span class="icon-text">提问箱</span>
+            <a class="icon-item" href="https://space.bilibili.com/1048135385" target="_blank">
+                <img src="/static/pic/space.png" alt="harei">
+                <span class="icon-text">花礼的空间</span>
+            </a>
+            <a class="icon-item" href="https://live.bilibili.com/1820703922" target="_blank">
+                <img src="/static/pic/stream.png" alt="harei">
+                <span class="icon-text">花礼的直播间</span>
+            </a>
+            <a class="icon-item" href="https://space.bilibili.com/3546636416452709" target="_blank">
+                <img src="/static/pic/lubo.png" alt="harei">
+                <span class="icon-text">花礼的录播号</span>
+            </a>
+            <a class="icon-item" href="https://github.com/QianQiuZy/harei.cn" target="_blank">
+                <img src="/static/pic/github.png" alt="GitHub">
+                <span class="icon-text">源代码</span>
+            </a>
+            <a class="icon-item" href="https://space.bilibili.com/351708822" target="_blank">
+                <img src="/static/pic/zuozhe.png" alt="zuozhe">
+                <span class="icon-text">联系作者</span>
+            </a>
+        </div>
+    </div>
+    <div class="main-content">
+        <div class="profile-section">
+            <div id="header">
+                <img id="avatar" src="/static/pic/avatar.jpg" alt="花礼的头像"> 
+                <h1>花礼harei的提问箱</h1>
+            </div>
+            <textarea id="message-input" placeholder="请将你想要告诉花礼的小秘密说出来吧~"></textarea>
+            <button id="submit-button">提交</button>
+            <div id="success-message" style="color: green; display: none;">提交成功!</div>
+        </div>
+    </div>
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+    <script>
+        document.getElementById('submit-button').addEventListener('click', function() {
+            const message = document.getElementById('message-input').value;
+
+            if (message.trim() !== '') {
+                fetch('/upload', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ message: message })
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        document.getElementById('success-message').style.display = 'block';
+                        document.getElementById('message-input').value = '';
+                        setTimeout(() => {
+                            window.location.reload();
+                        }, 2000);
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                });
+            } else {
+                alert('请填写你的内容!');
+            }
+        });
+    </script>
+</body>
+</html>
