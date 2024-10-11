@@ -1,0 +1,135 @@
+/* 通用样式 */
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    position: relative; /* 确保内容相对定位 */
+    min-height: 100vh; /* 使页面至少有 100% 的视口高度 */
+}
+
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: none;
+    z-index: 1;
+}
+
+/* 背景层样式 */
+.background-layer {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+    opacity: 0.5; /* 调整背景透明度 */
+    z-index: 0; /* 确保在最底层 */
+}
+
+/* 主内容样式 */
+.profile-section {
+    background-color: rgba(255, 255, 255, 0.9); /* 柔和的白色背景 */
+    padding: 30px;
+    border-radius: 20px; /* 圆角 */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* 阴影效果 */
+    position: relative; /* 改为相对定位 */
+    top: 10px; /* 顶部对齐 */
+    transition: margin-left 0.3s;
+    bottom: 30px; /* 底部对齐 */
+    z-index: 1; /* 确保在背景层之上 */
+}
+
+/* 主内容样式 */
+.main-content {
+    margin-left: 60px; /* 确保内容与侧边栏分开 */
+    padding: 20px;
+    transition: margin-left 0.3s;
+    padding-bottom: 10px; /* 确保底部有空间 */
+}
+
+/* 侧边栏样式 */
+.sidebar {
+    width: 60px;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background-color: #333;
+    overflow: hidden;
+    transition: width 0.3s;
+    z-index: 2;
+}
+
+.sidebar.open {
+    width: 200px;
+}
+
+.menu-icon {
+    color: white;
+    font-size: 24px;
+    padding: 10px;
+    cursor: pointer;
+}
+
+.icon-item {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    color: white;
+    text-decoration: none;
+    opacity: 0; /* 初始透明度为 0 */
+    transform: translateX(-20px); /* 初始位置稍微向左 */
+    animation-fill-mode: forwards; /* 保持动画结束时的状态 */
+}
+
+/* 当侧边栏打开时，逐个显示文本 */
+.sidebar.open .icon-item {
+    animation: slideIn 0.5s forwards; /* 使用动画 */
+}
+
+/* 定义动画 */
+@keyframes slideIn {
+    to {
+        opacity: 1; /* 结束时透明度为 1 */
+        transform: translateX(0); /* 结束时回到原位 */
+    }
+}
+
+.icon-item:hover {
+    background-color: #575757;
+}
+
+.icon-item img {
+    width: 40px;
+    height: 40px;
+    margin-right: 10px;
+}
+
+.icon-text {
+    display: none;
+}
+
+.sidebar.open .icon-text {
+    display: inline;
+}
+
+/* 底部样式 */
+.footer {
+    position: absolute; /* 使用绝对定位 */
+    bottom: 0; /* 直接对齐底部 */
+    transition: margin-left 0.3s;
+    width: 100%; /* 使其占据整个底部 */
+    text-align: left; /* 让footer内容靠左 */
+    color: black; /* 字体颜色 */
+    padding: 10px; /* 留出空间 */
+    z-index: 1; /* 确保在内容之上 */
+}
+
+.footer a {
+    text-decoration: none;
+    color: black; /* GitHub链接的颜色 */
+}

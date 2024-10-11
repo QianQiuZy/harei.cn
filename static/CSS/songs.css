@@ -1,0 +1,93 @@
+/* 通用样式 */
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+}
+
+/* 搜索框区域样式 */
+.search-area {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.search-area input {
+    flex: 1;
+    padding: 10px;
+    margin-right: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.search-area select {
+    padding: 10px;
+    margin-right: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+/* 歌单表格样式 */
+.song-table {
+    display: flex;
+    flex-direction: column; /* 使用垂直排列 */
+    border-collapse: collapse; /* 去掉表格间的空隙 */
+}
+
+.table-header,
+.table-row {
+    display: flex; /* 水平排列各个列 */
+    justify-content: space-between; /* 平均分配空间 */
+    padding: 12px;
+    border: 1px solid #ddd; /* 边框 */
+    background-color: #fff; /* 背景颜色 */
+}
+
+/* 列宽比例设置 */
+.song-name {
+    flex: 4; /* 歌曲列占比4 */
+}
+
+.artist-name {
+    flex: 3; /* 歌手列占比3 */
+}
+
+.genre {
+    flex: 1; /* 类型列占比2 */
+}
+
+.language {
+    flex: 1; /* 类型列占比2 */
+}
+
+.remarks {
+    flex: 1; /* 备注列占比1 */
+}
+
+/* 字符换行处理 */
+.word-wrap {
+    word-wrap: break-word; /* 确保长单词换行 */
+    white-space: normal; /* 允许文本换行 */
+    overflow-wrap: break-word; /* 防止长词撑破单元格 */
+}
+
+/* 媒体查询 - 手机端适配 */
+@media (max-width: 768px) 
+{
+    #artist-select,
+    #genre-select,
+    #language-select,
+    .genre, 
+    .remarks,
+    .language
+    {
+        display: none; /* 隐藏类型和备注列 */
+    }
+
+    .song-name {
+        flex: 7; /* 在手机上，歌曲列占比6 */
+    }
+
+    .artist-name {
+        flex: 3; /* 在手机上，歌手列占比4 */
+    }
+}
