@@ -8,13 +8,16 @@
 ### 运行步骤
 
 1. 克隆仓库：
-   `git clone https://github.com/QianQiuZy/harei.cn`
+   ```bash
+   git clone https://github.com/QianQiuZy/harei.cn
 
 2. 配置环境：
-   `pip install flask pillow`
+   ```bash
+   pip install flask pillow
 
-3. 运作项目：
-   `python app.py`
+4. 运作项目：
+   ```bash
+   python app.py
 
 ### 作者主页
 
