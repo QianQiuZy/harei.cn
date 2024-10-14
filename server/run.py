@@ -122,12 +122,14 @@ def upload():
 @app.route('/message')
 def message():
     # 这里可以替换成实际的对话框数据
-    dialogues = [
-        {"id": 1, "title": "Dialogue 11", "content": "This is the content of dialogue 1", "image": "/static/images/example1.png"},
-        {"id": 2, "title": "Dialogue 2", "content": "This is the content of dialogue 2", "image": "/static/images/example2.png"},
-        {"id": 3, "title": "Dialogue 3", "content": "This is the content of dialogue 3", "image": "/static/images/example3.png"},
+    chat_data = [
+        {'id': 1, 'title': '会话 1'},
+        {'id': 2, 'title': '会话 2'},
+        {'id': 3, 'title': '会话 3'},
+        {'id': 4, 'title': '会话 4'}
     ]
-    return render_template('message.html', dialogues=dialogues)
+    return render_template('message.html', chat_data=chat_data)
+    # return render_template('message.html', dialogues=dialogues)
 
 if __name__ == '__main__':
     app.run()

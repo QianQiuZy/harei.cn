@@ -51,29 +51,20 @@
     <div class="main-content">
         <div class="profile-section">
             <div class="container">
+
                 <!-- 左侧会话列表 -->
-                <div class="chat-list">
-                    <ul>
-                        <li><a href="#" class="chat-link" data-id="1">会话 1</a></li>
-                        <li><a href="#" class="chat-link" data-id="2">会话 2</a></li>
-                        <li><a href="#" class="chat-link" data-id="3">会话 3</a></li>
-                    </ul>
-                </div>
+                {% for chat in chat_data %}
+                    <li><a href="#" class="chat-link" data-id="{{ chat.id }}">{{ chat.title }}</a></li>
+                {% endfor %}
         
                 <!-- 右侧会话内容 -->
                 <div class="chat-content">
-                    <div id="chat-1" class="chat-box" style="display: block;">
-                        <h2>会话 1</h2>
-                        <p>这是会话 1 的内容。</p>
-                    </div>
-                    <div id="chat-2" class="chat-box" style="display: none;">
-                        <h2>会话 2</h2>
-                        <p>这是会话 2 的内容。</p>
-                    </div>
-                    <div id="chat-3" class="chat-box" style="display: none;">
-                        <h2>会话 3</h2>
-                        <p>这是会话 3 的内容。</p>
-                    </div>
+                    {% for chat in chat_data %}
+                        <div id="chat-{{ chat.id }}" class="chat-box" style="display: none;">
+                            <h2>{{ chat.title }}</h2>
+                            <p>这是 {{ chat.title }} 的内容。</p>
+                        </div>
+                    {% endfor %}
                 </div>
             </div>
         </div>
@@ -81,9 +72,7 @@
     <script src="{{ url_for('static', filename='script.js') }}"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            // 获取所有会话链接
             const chatLinks = document.querySelectorAll('.chat-link');
-            // 获取所有会话内容框
             const chatBoxes = document.querySelectorAll('.chat-box');
 
             // 显示第一个会话内容
@@ -105,7 +94,6 @@
                 });
             });
         });
-
     </script>
 </body>
 </html>

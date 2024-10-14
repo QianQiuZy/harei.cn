@@ -14,29 +14,32 @@
     margin: 0;
 }
 
+/* 通用样式 */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    font-family: 'Arial', sans-serif;
 }
 
 body {
-    font-family: Arial, sans-serif;
+    background-color: #f7f7f7;
 }
 
+/* 容器布局 */
 .container {
     display: flex;
     height: 100vh;
-    border: 1px solid #ccc;
+    border: 1px solid #ddd;
 }
 
 /* 左侧会话列表 */
 .chat-list {
     width: 30%;
-    background-color: #f0f0f0;
-    padding: 10px;
+    background-color: #fff;
+    padding: 20px;
     overflow-y: auto;
-    border-right: 1px solid #ddd;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
 }
 
 .chat-list ul {
@@ -44,40 +47,64 @@ body {
 }
 
 .chat-list li {
-    margin-bottom: 10px;
+    margin-bottom: 15px;
 }
 
 .chat-list a {
     text-decoration: none;
     color: #333;
     font-size: 18px;
-    padding: 10px;
+    padding: 15px;
     display: block;
-    background-color: #fff;
-    border-radius: 5px;
-    transition: background-color 0.3s;
+    background-color: #f0f0f0;
+    border-radius: 10px;
+    transition: background-color 0.3s, box-shadow 0.3s;
 }
 
 .chat-list a:hover {
-    background-color: #ddd;
+    background-color: #d9d9d9;
+    box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.1);
 }
 
-/* 右侧会话内容 */
+/* 右侧会话内容区域 */
 .chat-content {
     width: 70%;
     padding: 20px;
+    background-color: #f7f7f7;
     overflow-y: auto;
 }
 
 .chat-box {
     display: none;
+    background-color: #fff;
+    padding: 20px;
+    margin-bottom: 15px;
+    border-radius: 10px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
 }
 
 .chat-box h2 {
     font-size: 24px;
     margin-bottom: 10px;
+    color: #333;
 }
 
 .chat-box p {
     font-size: 16px;
+    line-height: 1.6;
+    color: #666;
+}
+
+/* 会话显示效果 */
+.chat-box.show {
+    display: block;
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.chat-box.hide {
+    display: none;
+    opacity: 0;
+    transform: translateY(20px);
 }
