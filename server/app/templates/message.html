@@ -65,7 +65,11 @@
                         <div id="chat-{{ chat.id }}" class="chat-box" style="display: none;">
                             <h2>{{ chat.title }}</h2>
                             <p>这是 {{ chat.title }} 的内容。</p>
-                            <img src="{{ chat.image }}" alt="{{ chat.title }} Image" style="max-width: 100%; border-radius: 10px;">
+                            
+                            <!-- 遍历并显示所有与该消息关联的图片 -->
+                            {% for image_url in chat.images %}
+                                <img src="{{ image_url }}" alt="{{ chat.title }} Image" style="max-width: 100%; border-radius: 10px; margin-bottom: 10px;">
+                            {% endfor %}
                         </div>
                     {% endfor %}
                 </div>
