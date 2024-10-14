@@ -53,9 +53,11 @@
             <div class="container">
 
                 <!-- 左侧会话列表 -->
-                {% for chat in chat_data %}
-                    <li><a href="#" class="chat-link" data-id="{{ chat.id }}">{{ chat.title }}</a></li>
-                {% endfor %}
+                <div class="chat-list">
+                    {% for chat in chat_data %}
+                        <li><a href="#" class="chat-link" data-id="{{ chat.id }}">{{ chat.title }}</a></li>
+                    {% endfor %}
+                </div>
         
                 <!-- 右侧会话内容 -->
                 <div class="chat-content">
@@ -63,6 +65,7 @@
                         <div id="chat-{{ chat.id }}" class="chat-box" style="display: none;">
                             <h2>{{ chat.title }}</h2>
                             <p>这是 {{ chat.title }} 的内容。</p>
+                            <img src="{{ chat.image }}" alt="{{ chat.title }} Image" style="max-width: 100%; border-radius: 10px;">
                         </div>
                     {% endfor %}
                 </div>

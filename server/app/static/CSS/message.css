@@ -37,17 +37,23 @@ body {
 .chat-list {
     width: 30%;
     background-color: #fff;
-    padding: 20px;
+    padding: 10px;
     overflow-y: auto;
+    display: flex;
+    flex-direction: column; /* 设置纵向排列 */
+    align-items: stretch;   /* 使每个会话列表项撑满宽度 */
     box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
 }
 
 .chat-list ul {
     list-style-type: none;
+    width: 100%;
 }
 
 .chat-list li {
-    margin-bottom: 15px;
+    list-style-type: none;
+    margin-bottom: 10px;
+    width: 100%; /* 每个 li 撑满宽度 */
 }
 
 .chat-list a {
@@ -59,6 +65,11 @@ body {
     background-color: #f0f0f0;
     border-radius: 10px;
     transition: background-color 0.3s, box-shadow 0.3s;
+    width: 100%;
+}
+
+.chat-link a{
+    list-style-type: none;
 }
 
 .chat-list a:hover {

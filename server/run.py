@@ -123,11 +123,26 @@ def upload():
 def message():
     # 这里可以替换成实际的对话框数据
     chat_data = [
-        {'id': 1, 'title': '会话 1'},
-        {'id': 2, 'title': '会话 2'},
-        {'id': 3, 'title': '会话 3'},
-        {'id': 4, 'title': '会话 4'}
+        {'id': 1, 'title': '会话 1', 'image': 'https://www.baidu.com/img/PCtm_d9c8750bed0b3c7d089fa7d55720d6cf.png'},
+        {'id': 2, 'title': '会话 2', 'image': 'https://www.baidu.com/img/PCtm_d9c8750bed0b3c7d089fa7d55720d6cf.png'},
+        {'id': 3, 'title': '会话 3', 'image': 'https://www.baidu.com/img/PCtm_d9c8750bed0b3c7d089fa7d55720d6cf.png'},
+        {'id': 4, 'title': '会话 4', 'image': 'https://www.baidu.com/img/PCtm_d9c8750bed0b3c7d089fa7d55720d6cf.png'},
+        {'id': 5, 'title': '会话 5', 'image': 'https://www.baidu.com/img/PCtm_d9c8750bed0b3c7d089fa7d55720d6cf.png'},
+        {'id': 6, 'title': '会话 6', 'image': 'https://www.baidu.com/img/PCtm_d9c8750bed0b3c7d089fa7d55720d6cf.png'},
+        {'id': 7, 'title': '会话 7', 'image': 'https://www.baidu.com/img/PCtm_d9c8750bed0b3c7d089fa7d55720d6cf.png'},
+        {'id': 8, 'title': '会话 8', 'image': 'https://www.baidu.com/img/PCtm_d9c8750bed0b3c7d089fa7d55720d6cf.png'},
+        {'id': 9, 'title': '会话 9', 'image': 'https://www.baidu.com/img/PCtm_d9c8750bed0b3c7d089fa7d55720d6cf.png'},
+        {'id': 10, 'title': '会话 10', 'image': 'https://www.baidu.com/img/PCtm_d9c8750bed0b3c7d089fa7d55720d6cf.png'},
+        {'id': 11, 'title': '会话 11', 'image': 'https://www.baidu.com/img/PCtm_d9c8750bed0b3c7d089fa7d55720d6cf.png'},
+        {'id': 12, 'title': '会话 12', 'image': 'https://www.baidu.com/img/PCtm_d9c8750bed0b3c7d089fa7d55720d6cf.png'},
+        {'id': 13, 'title': '会话 13', 'image': 'https://www.baidu.com/img/PCtm_d9c8750bed0b3c7d089fa7d55720d6cf.png'},
+        {'id': 14, 'title': '会话 14', 'image': 'https://www.baidu.com/img/PCtm_d9c8750bed0b3c7d089fa7d55720d6cf.png'},
+        {'id': 15, 'title': '会话 15', 'image': 'https://www.baidu.com/img/PCtm_d9c8750bed0b3c7d089fa7d55720d6cf.png'},
+        {'id': 16, 'title': '会话 16', 'image': 'https://www.baidu.com/img/PCtm_d9c8750bed0b3c7d089fa7d55720d6cf.png'},
+        {'id': 17, 'title': '会话 17', 'image': 'https://www.baidu.com/img/PCtm_d9c8750bed0b3c7d089fa7d55720d6cf.png'},
+        {'id': 18, 'title': '会话 18', 'image': 'https://www.baidu.com/img/PCtm_d9c8750bed0b3c7d089fa7d55720d6cf.png'}
     ]
+
     return render_template('message.html', chat_data=chat_data)
     # return render_template('message.html', dialogues=dialogues)
 
