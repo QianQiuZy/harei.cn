@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="{{ url_for('static', filename='pic/32x32.png') }}" sizes="32x32" type="image/png">
+    <link rel="icon" href="{{ url_for('static', filename='pic/16x16.png') }}" sizes="16x16" type="image/png">
+    <link rel="stylesheet" href="{{ url_for('static', filename='CSS/sidebar.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='CSS/message.css') }}">
+    <title>花礼的提问箱</title>
+</head>
+<body>
+    <div id="overlay" class="overlay"></div>
+    <div class="background-layer" style="background-image: url('https://qianqiuzy-1313476938.cos.ap-shanghai.myqcloud.com/harei-back.jpg');"></div>
+    <div class="sidebar" id="sidebar">
+        <div class="menu-icon" onclick="toggleMenu()">☰</div>
+        <div class="icon-group">
+            <a class="icon-item" href="/">
+                <img src="/static/pic/home.png" alt="Home">
+                <span class="icon-text">首页</span>
+            </a>
+            <a class="icon-item" href="/songs">
+                <img src="/static/pic/music.png" alt="Songs">
+                <span class="icon-text">歌单</span>
+            </a>
+            <a class="icon-item" href="/box">
+                <img src="/static/pic/box.png" alt="Box">
+                <span class="icon-text">提问箱</span>
+            <a class="icon-item" href="https://space.bilibili.com/1048135385" target="_blank">
+                <img src="/static/pic/space.png" alt="harei">
+                <span class="icon-text">花礼的空间</span>
+            </a>
+            <a class="icon-item" href="https://live.bilibili.com/1820703922" target="_blank">
+                <img src="/static/pic/stream.png" alt="harei">
+                <span class="icon-text">花礼的直播间</span>
+            </a>
+            <a class="icon-item" href="https://space.bilibili.com/3546636416452709" target="_blank">
+                <img src="/static/pic/lubo.png" alt="harei">
+                <span class="icon-text">花礼的录播号</span>
+            </a>
+            <a class="icon-item" href="https://github.com/QianQiuZy/harei.cn" target="_blank">
+                <img src="/static/pic/github.png" alt="GitHub">
+                <span class="icon-text">源代码</span>
+            </a>
+            <a class="icon-item" href="https://space.bilibili.com/351708822" target="_blank">
+                <img src="/static/pic/zuozhe.png" alt="zuozhe">
+                <span class="icon-text">联系作者</span>
+            </a>
+        </div>
+    </div>
+    <div class="main-content">
+        <div class="profile-section">
+            <div class="container">
+                <!-- 左侧会话列表 -->
+                <div class="chat-list">
+                    <ul>
+                        <li><a href="#" class="chat-link" data-id="1">会话 1</a></li>
+                        <li><a href="#" class="chat-link" data-id="2">会话 2</a></li>
+                        <li><a href="#" class="chat-link" data-id="3">会话 3</a></li>
+                    </ul>
+                </div>
+        
+                <!-- 右侧会话内容 -->
+                <div class="chat-content">
+                    <div id="chat-1" class="chat-box" style="display: block;">
+                        <h2>会话 1</h2>
+                        <p>这是会话 1 的内容。</p>
+                    </div>
+                    <div id="chat-2" class="chat-box" style="display: none;">
+                        <h2>会话 2</h2>
+                        <p>这是会话 2 的内容。</p>
+                    </div>
+                    <div id="chat-3" class="chat-box" style="display: none;">
+                        <h2>会话 3</h2>
+                        <p>这是会话 3 的内容。</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // 获取所有会话链接
+            const chatLinks = document.querySelectorAll('.chat-link');
+            // 获取所有会话内容框
+            const chatBoxes = document.querySelectorAll('.chat-box');
+
+            // 显示第一个会话内容
+            chatBoxes[0].style.display = 'block';
+
+            chatLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+
+                    // 隐藏所有会话内容
+                    chatBoxes.forEach(box => {
+                        box.style.display = 'none';
+                    });
+
+                    // 获取当前点击的会话ID
+                    const id = this.getAttribute('data-id');
+                    // 显示对应的会话内容
+                    document.getElementById(`chat-${id}`).style.display = 'block';
+                });
+            });
+        });
+
+    </script>
+</body>
+</html>
