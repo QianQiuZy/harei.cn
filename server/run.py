@@ -4,8 +4,10 @@ from datetime import datetime
 from PIL import Image, ImageDraw, ImageFont
 from werkzeug.security import check_password_hash, generate_password_hash
 import zipfile
-
-app = Flask(__name__)
+from app import create_app
+from app.services.message_service import MessageService
+# app = Flask(__name__)  这里用工厂模式，所以在__init__.py中已经创建了app
+app=create_app()
 app.secret_key = 'your_secret_key'
 
 UPLOAD_FOLDER = 'uploads'
@@ -80,6 +82,9 @@ def delete_files():
 
 @app.route('/upload', methods=['POST'])
 def upload():
+    # new_message = MessageService.create_message('guest_id', "message_text")
+    # print("test success:",new_message.message_id)
+
     data = request.get_json()
     message = data.get('message', '')
     now = datetime.now()
@@ -115,4 +120,4 @@ def upload():
     return {'success': True}
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run()
