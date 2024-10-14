@@ -20,6 +20,7 @@ PPS：本来想写网站里但是觉得无所谓（？）别乱搞，乱搞会�
 2. 配置环境：
    ```bash
    pip install flask pillow
+   pip install flask_sqlalchemy
 
 4. 运作项目：
    ```bash
@@ -38,3 +39,4 @@ PPS：本来想写网站里但是觉得无所谓（？）别乱搞，乱搞会�
 COS对象存储服务器 估算50/年
 
 给花礼的舰长礼物和SC（？）
+
