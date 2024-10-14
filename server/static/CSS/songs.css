@@ -1,0 +1,87 @@
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+}
+
+.search-area {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.search-area input {
+    flex: 1;
+    padding: 10px;
+    margin-right: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.search-area select {
+    padding: 10px;
+    margin-right: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.song-table {
+    display: flex;
+    flex-direction: column;
+    border-collapse: collapse;
+}
+
+.table-header,
+.table-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 12px;
+    border: 1px solid #ddd;
+    background-color: #fff;
+}
+
+.song-name {
+    flex: 4;
+}
+
+.artist-name {
+    flex: 3;
+}
+
+.genre {
+    flex: 1;
+}
+
+.language {
+    flex: 1;
+}
+
+.remarks {
+    flex: 1;
+}
+
+.word-wrap {
+    word-wrap: break-word;
+    white-space: normal;
+    overflow-wrap: break-word;
+}
+
+@media (max-width: 768px) 
+{
+    #artist-select,
+    #genre-select,
+    #language-select,
+    .genre, 
+    .remarks,
+    .language
+    {
+        display: none;
+    }
+
+    .song-name {
+        flex: 7;
+    }
+
+    .artist-name {
+        flex: 3;
+    }
+}

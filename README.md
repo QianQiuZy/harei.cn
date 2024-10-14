@@ -23,7 +23,7 @@ PPS：本来想写网站里但是觉得无所谓（？）别乱搞，乱搞会�
 
 4. 运作项目：
    ```bash
-   python app.py
+   python /server/app.py
 
 ### 作者主页
 
