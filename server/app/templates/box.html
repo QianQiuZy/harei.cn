@@ -1,154 +1,190 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" href="{{ url_for('static', filename='pic/32x32.png') }}" sizes="32x32" type="image/png">
-    <link rel="icon" href="{{ url_for('static', filename='pic/16x16.png') }}" sizes="16x16" type="image/png">
-    <link rel="stylesheet" href="{{ url_for('static', filename='CSS/sidebar.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='CSS/box.css') }}">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="icon"
+      href="{{ url_for('static', filename='pic/32x32.png') }}"
+      sizes="32x32"
+      type="image/png"
+    />
+    <link
+      rel="icon"
+      href="{{ url_for('static', filename='pic/16x16.png') }}"
+      sizes="16x16"
+      type="image/png"
+    />
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='CSS/sidebar.css') }}"
+    />
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='CSS/box.css') }}"
+    />
     <style>
-        .thumbnail-container {
-            display: flex;
-            flex-wrap: wrap;
-            margin-top: 10px;
-        }
+      .thumbnail-container {
+        display: flex;
+        flex-wrap: wrap;
+        margin-top: 10px;
+      }
 
-        .thumbnail {
-            position: relative;
-            display: inline-block;
-            margin-right: 10px;
-            margin-bottom: 10px;
-        }
+      .thumbnail {
+        position: relative;
+        display: inline-block;
+        margin-right: 10px;
+        margin-bottom: 10px;
+      }
 
-        .thumbnail img {
-            max-width: 100px;
-            max-height: 100px;
-            border-radius: 5px;
-        }
+      .thumbnail img {
+        max-width: 100px;
+        max-height: 100px;
+        border-radius: 5px;
+      }
 
-        .thumbnail .remove-btn {
-            position: absolute;
-            top: 0;
-            right: 0;
-            background-color: rgba(255, 0, 0, 0.7);
-            color: white;
-            border: none;
-            border-radius: 50%;
-            width: 20px;
-            height: 20px;
-            text-align: center;
-            cursor: pointer;
-        }
+      .thumbnail .remove-btn {
+        position: absolute;
+        top: 0;
+        right: 0;
+        background-color: rgba(255, 0, 0, 0.7);
+        color: white;
+        border: none;
+        border-radius: 50%;
+        width: 20px;
+        height: 20px;
+        text-align: center;
+        cursor: pointer;
+      }
     </style>
     <title>花礼的提问箱</title>
-</head>
-<body>
+  </head>
+  <body>
     <div id="overlay" class="overlay"></div>
-    <div class="background-layer" style="background-image: url('https://qianqiuzy-1313476938.cos.ap-shanghai.myqcloud.com/harei-back.jpg');"></div>
+    <div
+      class="background-layer"
+      style="
+        background-image: url('https://qianqiuzy-1313476938.cos.ap-shanghai.myqcloud.com/harei-back.jpg');
+      "
+    ></div>
     <div class="sidebar" id="sidebar">
-        <div class="menu-icon" onclick="toggleMenu()">☰</div>
-        <div class="icon-group">
-            <!-- Sidebar items omitted for brevity -->
-        </div>
+      <div class="menu-icon" onclick="toggleMenu()">☰</div>
+      <div class="icon-group">
+        <!-- Sidebar items omitted for brevity -->
+      </div>
     </div>
     <div class="main-content">
-        <div class="profile-section">
-            <div id="header">
-                <img id="avatar" src="/static/pic/avatar.jpg" alt="花礼的头像"> 
-                <h1>花礼harei的提问箱</h1>
-            </div>
-            <textarea id="message-input" placeholder="请将你想要告诉花礼的小秘密说出来吧~"></textarea>
-            <input type="file" id="image-input" accept="image/*" multiple style="display: none;"/>
-            <button id="add-files-button">添加文件</button> <!-- 添加文件按钮 -->
-            <div class="thumbnail-container" id="thumbnail-container"></div>
-            <button id="submit-button">提交</button>
-            <div id="success-message" style="color: green; display: none;">提交成功!</div>
+      <div class="profile-section">
+        <div id="header">
+          <img id="avatar" src="/static/pic/avatar.jpg" alt="花礼的头像" />
+          <h1>花礼harei的提问箱</h1>
         </div>
+        <textarea
+          id="message-input"
+          placeholder="请将你想要告诉花礼的小秘密说出来吧~"
+        ></textarea>
+        <input
+          type="file"
+          id="image-input"
+          accept="image/*"
+          multiple
+          style="display: none"
+        />
+        <button id="add-files-button">添加文件</button>
+        <!-- 添加文件按钮 -->
+        <div class="thumbnail-container" id="thumbnail-container"></div>
+        <button id="submit-button">提交</button>
+        <div id="success-message" style="color: green; display: none">
+          提交成功!
+        </div>
+      </div>
     </div>
 
     <script>
-        const imageInput = document.getElementById('image-input');
-        const addFilesButton = document.getElementById('add-files-button');
-        const thumbnailContainer = document.getElementById('thumbnail-container');
-        let selectedImages = [];
+      const imageInput = document.getElementById("image-input");
+      const addFilesButton = document.getElementById("add-files-button");
+      const thumbnailContainer = document.getElementById("thumbnail-container");
+      let selectedImages = [];
 
-        // 点击"添加文件"按钮时触发文件选择
-        addFilesButton.addEventListener('click', function() {
-            imageInput.click();
-        });
+      // 点击"添加文件"按钮时触发文件选择
+      addFilesButton.addEventListener("click", function () {
+        imageInput.click();
+      });
 
-        // 监听图片选择事件
-        imageInput.addEventListener('change', function(event) {
-            const files = event.target.files;
-            for (let i = 0; i < files.length; i++) {
-                const file = files[i];
-                selectedImages.push(file);
+      // 监听图片选择事件
+      imageInput.addEventListener("change", function (event) {
+        const files = event.target.files;
+        for (let i = 0; i < files.length; i++) {
+          const file = files[i];
+          selectedImages.push(file);
 
-                // 创建 FileReader 对象，读取图片并显示缩略图
-                const reader = new FileReader();
-                reader.onload = function(e) {
-                    // 创建缩略图元素
-                    const thumbnail = document.createElement('div');
-                    thumbnail.classList.add('thumbnail');
+          // 创建 FileReader 对象，读取图片并显示缩略图
+          const reader = new FileReader();
+          reader.onload = function (e) {
+            // 创建缩略图元素
+            const thumbnail = document.createElement("div");
+            thumbnail.classList.add("thumbnail");
 
-                    const img = document.createElement('img');
-                    img.src = e.target.result;
+            const img = document.createElement("img");
+            img.src = e.target.result;
 
-                    const removeBtn = document.createElement('button');
-                    removeBtn.classList.add('remove-btn');
-                    removeBtn.textContent = '×';
+            const removeBtn = document.createElement("button");
+            removeBtn.classList.add("remove-btn");
+            removeBtn.textContent = "×";
 
-                    // 点击 "×" 按钮时移除图片
-                    removeBtn.addEventListener('click', function() {
-                        thumbnail.remove(); // 从DOM中移除缩略图
-                        selectedImages = selectedImages.filter(f => f !== file); // 从selectedImages中移除
-                    });
+            // 点击 "×" 按钮时移除图片
+            removeBtn.addEventListener("click", function () {
+              thumbnail.remove(); // 从DOM中移除缩略图
+              selectedImages = selectedImages.filter((f) => f !== file); // 从selectedImages中移除
+            });
 
-                    thumbnail.appendChild(img);
-                    thumbnail.appendChild(removeBtn);
-                    thumbnailContainer.appendChild(thumbnail);
-                };
+            thumbnail.appendChild(img);
+            thumbnail.appendChild(removeBtn);
+            thumbnailContainer.appendChild(thumbnail);
+          };
 
-                reader.readAsDataURL(file); // 读取图片文件
-            }
-        });
+          reader.readAsDataURL(file); // 读取图片文件
+        }
+      });
 
-        document.getElementById('submit-button').addEventListener('click', function() {
-            const message = document.getElementById('message-input').value;
+      document
+        .getElementById("submit-button")
+        .addEventListener("click", function () {
+          const message = document.getElementById("message-input").value;
 
-            if (message.trim() !== '' || selectedImages.length > 0) {
-                const formData = new FormData();
-                formData.append('message', message);  // 添加文本消息
-                // 添加多张图片
-                selectedImages.forEach((image, index) => {
-                    formData.append(`image_${index}`, image);
-                });
+          if (message.trim() !== "" || selectedImages.length > 0) {
+            const formData = new FormData();
+            formData.append("message", message); // 添加文本消息
+            // 添加多张图片
+            selectedImages.forEach((image, index) => {
+              formData.append(`image_${index}`, image);
+            });
 
-                fetch('/upload', {
-                    method: 'POST',
-                    body: formData
-                })
-                .then(response => response.json())
-                .then(data => {
-                    if (data.success) {
-                        document.getElementById('success-message').style.display = 'block';
-                        document.getElementById('message-input').value = '';
-                        thumbnailContainer.innerHTML = ''; // 清空缩略图
-                        imageInput.value = ''; // 重置文件输入框
-                        selectedImages = []; // 清空已选图片
-                        setTimeout(() => {
-                            window.location.reload();
-                        }, 2000);
-                    }
-                })
-                .catch(error => {
-                    console.error('Error:', error);
-                });
-            } else {
-                alert('请填写你的内容或选择至少一张图片!');
-            }
+            fetch("/upload", {
+              method: "POST",
+              body: formData,
+            })
+              .then((response) => response.json())
+              .then((data) => {
+                if (data.success) {
+                  document.getElementById("success-message").style.display =
+                    "block";
+                  document.getElementById("message-input").value = "";
+                  thumbnailContainer.innerHTML = ""; // 清空缩略图
+                  imageInput.value = ""; // 重置文件输入框
+                  selectedImages = []; // 清空已选图片
+                  setTimeout(() => {
+                    window.location.reload();
+                  }, 2000);
+                }
+              })
+              .catch((error) => {
+                console.error("Error:", error);
+              });
+          } else {
+            alert("请填写你的内容或选择至少一张图片!");
+          }
         });
     </script>
-</body>
+  </body>
 </html>

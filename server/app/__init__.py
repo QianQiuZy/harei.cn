@@ -5,14 +5,17 @@ from flask_sqlalchemy import SQLAlchemy
 # 创建 SQLAlchemy 实例
 db = SQLAlchemy()
 
+
 def create_app():
     # print(__name__)
     app = Flask(__name__)
-    
+
     # 配置数据库 URI（例如 SQLite、MySQL、PostgreSQL）
-    app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://root:123@localhost:3306/test'
-    app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-    app.config['UPLOAD_FOLDER'] = 'uploads'
+    app.config["SQLALCHEMY_DATABASE_URI"] = (
+        "mysql+pymysql://root:123@localhost:3306/test"
+    )
+    app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
+    app.config["UPLOAD_FOLDER"] = "uploads"
 
     # 将 SQLAlchemy 绑定到 Flask 应用
     db.init_app(app)

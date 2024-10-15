@@ -16,15 +16,18 @@ PPS：本来想写网站里但是觉得无所谓（？）别乱搞，乱搞会�
 1. 克隆仓库：
    ```bash
    git clone https://github.com/QianQiuZy/harei.cn
+   ```
 
 2. 配置环境：
    ```bash
-   pip install flask pillow
-   pip install flask_sqlalchemy
+   pip install pdm
+   pdm install
+   ```
 
 4. 运作项目：
    ```bash
-   python /server/run.py
+   pdm run server/run.py
+   ```
 
 ### 作者主页
 
@@ -39,4 +42,3 @@ PPS：本来想写网站里但是觉得无所谓（？）别乱搞，乱搞会�
 COS对象存储服务器 估算50/年
 
 给花礼的舰长礼物和SC（？）
-

@@ -1,0 +1,21 @@
+[project]
+name = "harei-cn"
+version = "0.1.0"
+description = "Default template for PDM package"
+authors = [
+    {name = "xlm.dev", email = "xlm@harei.cn"},
+]
+dependencies = [
+    "flask>=3.0.3",
+    "pillow>=10.4.0",
+    "flask-sqlalchemy>=3.1.1",
+    "pymysql>=1.1.1",
+    "cryptography>=43.0.1",
+]
+requires-python = ">=3.8"
+readme = "README.md"
+license = {text = "MIT"}
+
+
+[tool.pdm]
+distribution = false

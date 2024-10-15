@@ -1,127 +1,131 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>控制面板</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-            background-color: #f5f5f5;
-        }
-        .container {
-            max-width: 800px;
-            margin: 50px auto;
-            padding: 20px;
-            background-color: #fff;
-            border-radius: 8px;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-        }
-        h2 {
-            text-align: center;
-        }
-        button {
-            padding: 10px 20px;
-            margin: 10px;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-        }
-        .delete-btn {
-            background-color: #f44336;
-            color: white;
-        }
-        .download-btn {
-            background-color: #4CAF50;
-            color: white;
-        }
-        .modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.5);
-            justify-content: center;
-            align-items: center;
-        }
-        .modal-content {
-            background-color: white;
-            padding: 20px;
-            border-radius: 8px;
-            text-align: center;
-        }
-        .modal-content h3 {
-            margin-bottom: 20px;
-        }
-        .modal-buttons {
-            display: flex;
-            justify-content: space-around;
-        }
-        .confirm-btn {
-            background-color: green;
-            color: white;
-        }
-        .cancel-btn {
-            background-color: red;
-            color: white;
-        }
-        .success-message {
-            color: green;
-            text-align: center;
-            margin-top: 20px;
-            display: none;
-        }
+      body {
+        font-family: Arial, sans-serif;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        margin: 0;
+        background-color: #f5f5f5;
+      }
+      .container {
+        max-width: 800px;
+        margin: 50px auto;
+        padding: 20px;
+        background-color: #fff;
+        border-radius: 8px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      }
+      h2 {
+        text-align: center;
+      }
+      button {
+        padding: 10px 20px;
+        margin: 10px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+      }
+      .delete-btn {
+        background-color: #f44336;
+        color: white;
+      }
+      .download-btn {
+        background-color: #4caf50;
+        color: white;
+      }
+      .modal {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5);
+        justify-content: center;
+        align-items: center;
+      }
+      .modal-content {
+        background-color: white;
+        padding: 20px;
+        border-radius: 8px;
+        text-align: center;
+      }
+      .modal-content h3 {
+        margin-bottom: 20px;
+      }
+      .modal-buttons {
+        display: flex;
+        justify-content: space-around;
+      }
+      .confirm-btn {
+        background-color: green;
+        color: white;
+      }
+      .cancel-btn {
+        background-color: red;
+        color: white;
+      }
+      .success-message {
+        color: green;
+        text-align: center;
+        margin-top: 20px;
+        display: none;
+      }
     </style>
-</head>
-<body>
+  </head>
+  <body>
+    <div class="container">
+      <h2>简易的提问箱管理系统，just for harei</h2>
+      <button
+        class="download-btn"
+        onclick="window.location.href='/admin/download'"
+      >
+        打包下载所有图片
+      </button>
+      <button class="delete-btn" onclick="confirmDelete()">
+        删除所有图片和缓存文件
+      </button>
+      <div class="success-message" id="successMessage">已删除成功</div>
+    </div>
 
-<div class="container">
-    <h2>简易的提问箱管理系统，just for harei</h2>
-    <button class="download-btn" onclick="window.location.href='/admin/download'">打包下载所有图片</button>
-    <button class="delete-btn" onclick="confirmDelete()">删除所有图片和缓存文件</button>
-    <div class="success-message" id="successMessage">已删除成功</div>
-</div>
-
-<div id="deleteModal" class="modal">
-    <div class="modal-content">
+    <div id="deleteModal" class="modal">
+      <div class="modal-content">
         <h3>此删除不可逆，请问已经全部备份好了吗？</h3>
         <div class="modal-buttons">
-            <button class="confirm-btn" onclick="deleteFiles()">确认</button>
-            <button class="cancel-btn" onclick="closeModal()">取消</button>
+          <button class="confirm-btn" onclick="deleteFiles()">确认</button>
+          <button class="cancel-btn" onclick="closeModal()">取消</button>
         </div>
+      </div>
     </div>
-</div>
 
-<script>
-    function confirmDelete() {
-        document.getElementById('deleteModal').style.display = 'flex';
-    }
+    <script>
+      function confirmDelete() {
+        document.getElementById("deleteModal").style.display = "flex";
+      }
 
-    function closeModal() {
-        document.getElementById('deleteModal').style.display = 'none';
-    }
+      function closeModal() {
+        document.getElementById("deleteModal").style.display = "none";
+      }
 
-    function deleteFiles() {
-        fetch('/admin/delete')
-            .then(response => {
-                if (response.ok) {
-                    const successMessage = document.getElementById('successMessage');
-                    successMessage.style.display = 'block';
-                    setTimeout(() => {
-                        location.reload();
-                    }, 3000);
-                }
-            });
+      function deleteFiles() {
+        fetch("/admin/delete").then((response) => {
+          if (response.ok) {
+            const successMessage = document.getElementById("successMessage");
+            successMessage.style.display = "block";
+            setTimeout(() => {
+              location.reload();
+            }, 3000);
+          }
+        });
         closeModal();
-    }
-</script>
-
-</body>
+      }
+    </script>
+  </body>
 </html>

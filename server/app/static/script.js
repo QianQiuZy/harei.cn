@@ -7,7 +7,7 @@ function toggleMenu() {
 
     if (sidebar.classList.contains('open')) {
         overlay.style.display = 'block';
-        
+
         iconItems.forEach((item, index) => {
             item.style.animationDelay = `${index * 0.1}s`; // 为每个文本项设置延迟
         });
@@ -70,16 +70,16 @@ function submitMessage() {
         },
         body: JSON.stringify({ message: message })
     })
-    .then(response => {
-        if (response.ok) {
-            alert('提交成功！');
-            document.getElementById('message').value = ''; // 清空输入框
-        } else {
-            alert('提交失败，请重试。');
-        }
-    })
-    .catch(error => {
-        console.error('错误:', error);
-        alert('发生错误，请重试。');
-    });
+        .then(response => {
+            if (response.ok) {
+                alert('提交成功！');
+                document.getElementById('message').value = ''; // 清空输入框
+            } else {
+                alert('提交失败，请重试。');
+            }
+        })
+        .catch(error => {
+            console.error('错误:', error);
+            alert('发生错误，请重试。');
+        });
 }

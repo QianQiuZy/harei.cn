@@ -1,6 +1,7 @@
 from app.models.images import Image
 from app import db
 
+
 class ImageService:
     @staticmethod
     def create_image(message_id, image_path):

@@ -2,11 +2,12 @@
 from app.models.message import Message
 from app import db
 
+
 class MessageService:
     @staticmethod
     def create_message(guest_id, message_text):
         return Message.create(guest_id, message_text)
-    
+
     # 使用范例：
     # new_message = MessageService.create_message('guest_id', "message_text")
     # print("test success:",new_message.message_id)
@@ -14,7 +15,7 @@ class MessageService:
     @staticmethod
     def get_all_messages():
         return Message.query.all()
-    
+
     # 使用范例：
     # messages = MessageService.get_all_messages()
     # # 遍历并打印每条消息的详细信息
