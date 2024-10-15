@@ -21,8 +21,8 @@ from app.services.images_service import ImageService
 app = create_app()
 app.secret_key = "your_secret_key"
 
-UPLOAD_FOLDER = "uploads"
-ZIP_FOLDER = "zips"
+UPLOAD_FOLDER = "server/uploads"
+ZIP_FOLDER = "server/zips"
 
 for folder in [UPLOAD_FOLDER, ZIP_FOLDER]:
     if not os.path.exists(folder):
