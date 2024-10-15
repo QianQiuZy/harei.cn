@@ -27,7 +27,7 @@ body {
 .song-table {
   display: flex;
   flex-direction: column;
-  border-collapse: collapse;
+  /* border-collapse: collapse; */
 }
 
 .table-header,
@@ -46,17 +46,14 @@ body {
 .artist-name {
   flex: 3;
 }
-
-.genre {
-  flex: 1;
+.album-name {
+  flex: 3;
 }
-
-.language {
-  flex: 1;
+.release-date {
+  flex: 3;
 }
-
-.remarks {
-  flex: 1;
+.duration {
+  flex: 3;
 }
 
 .word-wrap {
@@ -65,21 +62,3 @@ body {
   overflow-wrap: break-word;
 }
 
-@media (max-width: 768px) {
-  #artist-select,
-  #genre-select,
-  #language-select,
-  .genre,
-  .remarks,
-  .language {
-    display: none;
-  }
-
-  .song-name {
-    flex: 7;
-  }
-
-  .artist-name {
-    flex: 3;
-  }
-}

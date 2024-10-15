@@ -16,6 +16,7 @@ import zipfile
 from app import create_app
 from app.services.message_service import MessageService
 from app.services.images_service import ImageService
+from app.services.music_service import MusicService
 
 # app = Flask(__name__)  这里用工厂模式，所以在__init__.py中已经创建了app
 app = create_app()
@@ -187,6 +188,65 @@ def message():
     # 将数据传递给模板
     return render_template("message.html", chat_data=chat_data)
 
+
+@app.route("/testadd")
+def testadd():
+    # 将数据传递给模板
+    return render_template("testadd.html")
+
+
+@app.route('/music', methods=['GET'])
+def get_all_music():
+    """
+    获取所有音乐，并以 JSON 格式返回
+    """
+    music_list = MusicService.get_all_music()  # 从 MusicService 获取所有音乐
+    # 将音乐对象转换为可序列化的 JSON 格式
+    music_data = []
+    
+    for music in music_list:
+        print(music)
+        music_data.append({
+            'music_id': music.music_id,
+            'title': music.title,
+            'artist': music.artist,
+            'album': music.album,
+            'release_date': music.release_date.strftime('%Y-%m-%d') if music.release_date else None,
+            'duration': music.duration,
+            'created_at': music.created_at.strftime('%Y-%m-%d %H:%M:%S')
+        })
+    
+    # 返回 JSON 响应
+    return (music_data), 200
+
+@app.route('/add-music', methods=['POST'])
+def add_music():
+    """
+    处理前端提交的歌曲信息，并存储到数据库
+    """
+    data = request.get_json()
+
+    # 获取前端提交的字段
+    title = data.get('title')
+    artist = data.get('artist')
+    album = data.get('album', None)
+    release_date = data.get('release_date')
+    duration = data.get('duration')
+
+    # 检查必填字段是否填写
+    if not title or not artist or not release_date or not duration:
+        return ({'success': False, 'message': '缺少必填字段'}), 400
+
+    # 使用 MusicService 创建新歌曲
+    new_music = MusicService.create_music(
+        title=title,
+        artist=artist,
+        album=album,
+        release_date=release_date,
+        duration=int(duration)  # 确保 duration 是整数
+    )
+
+    return ({'success': True, 'music_id': new_music.music_id}), 200
 
 if __name__ == "__main__":
     app.run()
