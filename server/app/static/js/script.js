@@ -91,3 +91,12 @@ document.addEventListener("DOMContentLoaded", function() {
             document.getElementById('sidebar-container').innerHTML = data;
         });
 });
+
+
+document.addEventListener("DOMContentLoaded", function() {
+    fetch('/static/components/host-sidebar.html')
+        .then(response => response.text())
+        .then(data => {
+            document.getElementById('host-sidebar-container').innerHTML = data;
+        });
+});
