@@ -127,6 +127,7 @@ def upload():
     for key, image in files.items():
         # 生成保存图片的路径
         image_path = os.path.join(app.config["UPLOAD_FOLDER"], image.filename)
+        print(os.getcwd())
         # 保存图片到服务器文件夹
         image.save(image_path)
         print(f"Saved image to {image_path}")
@@ -213,6 +214,9 @@ def get_all_music():
             'album': music.album,
             'release_date': music.release_date.strftime('%Y-%m-%d') if music.release_date else None,
             'duration': music.duration,
+            'type': music.type,  # 添加类型字段
+            'language': music.language,  # 添加语言字段
+            'note': music.note,  # 添加备注字段
             'created_at': music.created_at.strftime('%Y-%m-%d %H:%M:%S')
         })
     
@@ -232,6 +236,9 @@ def add_music():
     album = data.get('album', None)
     release_date = data.get('release_date')
     duration = data.get('duration')
+    type_ = data.get('type', None)  # 获取类型字段
+    language = data.get('language', None)  # 获取语言字段
+    note = data.get('note', None)  # 获取备注字段
 
     # 检查必填字段是否填写
     if not title or not artist or not release_date or not duration:
@@ -243,13 +250,16 @@ def add_music():
         artist=artist,
         album=album,
         release_date=release_date,
-        duration=int(duration)  # 确保 duration 是整数
+        duration=int(duration),  # 确保 duration 是整数
+        type=type_,  # 添加类型字段
+        language=language,  # 添加语言字段
+        note=note  # 添加备注字段
     )
 
     return ({'success': True, 'music_id': new_music.music_id}), 200
 
 if __name__ == "__main__":
-    app.run()
+    app.run(port=5002)
 
     # chat_data = [
     #     {'id': 1, 'title': '会话 1', 'image': 'https://www.baidu.com/img/PCtm_d9c8750bed0b3c7d089fa7d55720d6cf.png'},

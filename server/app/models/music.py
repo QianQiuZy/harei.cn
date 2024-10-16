@@ -12,6 +12,9 @@ class Music(db.Model):
     album = db.Column(db.String(255), nullable=True)  # 专辑（可选）
     release_date = db.Column(db.Date, nullable=True)  # 发行日期（可选）
     duration = db.Column(db.Integer, nullable=True)  # 音乐时长（秒）（可选）
+    type = db.Column(db.String(50), nullable=True)  # 音乐类型（可选）
+    language = db.Column(db.String(50), nullable=True)  # 语言（可选）
+    note = db.Column(db.Text, nullable=True)  # 备注（可选）
     created_at = db.Column(db.DateTime, default=datetime.now)  # 创建时间
 
     def __repr__(self):
@@ -19,13 +22,16 @@ class Music(db.Model):
 
     # 静态方法用于创建音乐条目
     @classmethod
-    def create(cls, title, artist, album=None, release_date=None, duration=None):
+    def create(cls, title, artist, album=None, release_date=None, duration=None, type=None, language=None, note=None):
         new_music = cls(
             title=title,
             artist=artist,
             album=album,
             release_date=release_date,
-            duration=duration
+            duration=duration,
+            type=type,
+            language=language,
+            note=note
         )
         db.session.add(new_music)
         db.session.commit()

@@ -10,9 +10,9 @@ document.addEventListener('DOMContentLoaded', function() {
                 row.innerHTML = `
                     <span class="song-name">${song.title}</span>
                     <span class="artist-name">${song.artist}</span>
-                    <span class="album-name">${song.album || '无'}</span>
-                    <span class="release-date">${song.release_date || '无'}</span>
-                    <span class="duration">${song.duration || '无'}</span>
+                    <span class="song-type">${song.album || '无'}</span>
+                    <span class="song-language">${song.release_date || '无'}</span>
+                    <span class="song-note">${song.duration || '无'}</span>
                 `;
                 songTableContent.appendChild(row);  // 插入新的歌曲行
             });

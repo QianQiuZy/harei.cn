@@ -3,7 +3,7 @@ from app import db
 
 class MusicService:
     @staticmethod
-    def create_music(title, artist, album=None, release_date=None, duration=None):
+    def create_music(title, artist, album=None, release_date=None, duration=None, type=None, language=None, note=None):
         """
         创建新的音乐条目
         """
@@ -12,7 +12,10 @@ class MusicService:
             artist=artist,
             album=album,
             release_date=release_date,
-            duration=duration
+            duration=duration,
+            type=type,
+            language=language,
+            note=note
         )
         return new_music
 
@@ -31,7 +34,7 @@ class MusicService:
         return Music.query.filter_by(music_id=music_id).first()
 
     @staticmethod
-    def update_music(music_id, title=None, artist=None, album=None, release_date=None, duration=None):
+    def update_music(music_id, title=None, artist=None, album=None, release_date=None, duration=None, type=None, language=None, note=None):
         """
         更新音乐信息
         """
@@ -47,6 +50,12 @@ class MusicService:
                 music.release_date = release_date
             if duration:
                 music.duration = duration
+            if type:
+                music.type = type
+            if language:
+                music.language = language
+            if note:
+                music.note = note
 
             db.session.commit()  # 提交更改
         return music

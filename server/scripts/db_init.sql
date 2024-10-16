@@ -17,3 +17,16 @@ CREATE TABLE
         uploaded_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP, -- 图片上传时间
         FOREIGN KEY (message_id) REFERENCES Messages (message_id) ON DELETE CASCADE -- 留言删除时，相关图片也删除
     );
+
+CREATE TABLE music (
+    music_id INT PRIMARY KEY AUTO_INCREMENT,  -- 唯一标识符
+    title VARCHAR(255) NOT NULL,              -- 音乐名称
+    artist VARCHAR(255) NOT NULL,             -- 艺术家
+    album VARCHAR(255),                       -- 专辑（可选）
+    release_date DATE,                        -- 发行日期（可选）
+    duration INT,                             -- 音乐时长（秒）（可选）
+    type VARCHAR(50),                         -- 音乐类型（可选）
+    language VARCHAR(50),                     -- 语言（可选）
+    note TEXT,                                -- 备注（可选）
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP  -- 创建时间
+);

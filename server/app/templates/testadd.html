@@ -36,6 +36,21 @@
                 <input type="number" id="duration" name="duration" placeholder="输入时长（秒）" required>
             </div>
 
+            <div class="form-group">
+                <label for="type">类型:</label>
+                <input type="text" id="type" name="type" placeholder="输入音乐类型">
+            </div>
+
+            <div class="form-group">
+                <label for="language">语言:</label>
+                <input type="text" id="language" name="language" placeholder="输入语言">
+            </div>
+
+            <div class="form-group">
+                <label for="note">备注:</label>
+                <textarea id="note" name="note" placeholder="输入备注"></textarea>
+            </div>
+
             <button type="submit">添加歌曲</button>
         </form>
 
@@ -54,7 +69,10 @@
                 artist: document.getElementById('artist').value,
                 album: document.getElementById('album').value,
                 release_date: document.getElementById('release_date').value,
-                duration: document.getElementById('duration').value
+                duration: document.getElementById('duration').value,
+                type: document.getElementById('type').value,
+                language: document.getElementById('language').value,
+                note: document.getElementById('note').value
             };
 
             // 使用 fetch 提交数据到后端
