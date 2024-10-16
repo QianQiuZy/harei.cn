@@ -21,10 +21,10 @@ function toggleMenu() {
     }
 }
 
-document.getElementById('search').addEventListener('input', filterSongs);
-document.getElementById('artist-select').addEventListener('change', filterSongs);
-document.getElementById('genre-select').addEventListener('change', filterSongs);
-document.getElementById('language-select').addEventListener('change', filterSongs);
+// document.getElementById('search').addEventListener('input', filterSongs);
+// document.getElementById('artist-select').addEventListener('change', filterSongs);
+// document.getElementById('genre-select').addEventListener('change', filterSongs);
+// document.getElementById('language-select').addEventListener('change', filterSongs);
 
 function filterSongs() {
     const searchValue = document.getElementById('search').value.toLowerCase();
@@ -52,7 +52,7 @@ function filterSongs() {
     });
 }
 
-document.getElementById('submit').addEventListener('click', submitMessage);
+// document.getElementById('submit').addEventListener('click', submitMessage);
 
 function submitMessage() {
     const message = document.getElementById('message').value;
@@ -83,3 +83,11 @@ function submitMessage() {
             alert('发生错误，请重试。');
         });
 }
+
+document.addEventListener("DOMContentLoaded", function() {
+    fetch('/static/components/sidebar.html')
+        .then(response => response.text())
+        .then(data => {
+            document.getElementById('sidebar-container').innerHTML = data;
+        });
+});
