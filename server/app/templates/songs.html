@@ -3,23 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" href="{{ url_for('static', filename='pic/32x32.png') }}" sizes="32x32" type="image/png">
-    <link rel="icon" href="{{ url_for('static', filename='pic/16x16.png') }}" sizes="16x16" type="image/png">
     <link rel="stylesheet" href="{{ url_for('static', filename='CSS/sidebar.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='CSS/songs.css') }}">
-    <link rel="stylesheet" href="/static/CSS/APlayer.min.css">
     <title>花礼的歌单</title>
 </head>
 <body>
     <div id="overlay" class="overlay"></div>
     <div class="background-layer" style="background-image: url('https://qianqiuzy-1313476938.cos.ap-shanghai.myqcloud.com/harei-back.jpg');"></div>
-    
     <div id="sidebar-container"></div>
-
     <div class="main-content">
         <div class="profile-section">
             <div class="search-area">
                 <input type="text" id="search" placeholder="搜索...">
+                <button id="search-button">搜索</button> <!-- 添加搜索按钮 -->
             </div>
 
             <div class="song-table">
@@ -31,51 +27,14 @@
                     <span class="song-note">备注</span>
                 </div>
                 <div class="table-content" id="song-table-content">
-                    <!-- 动态加载的歌曲将会插入到这里 -->
+                    <!-- 动态加载的歌曲将插入到这里 -->
                 </div>
             </div>
         </div>
-        <link rel="stylesheet" href="APlayer.min.css">
-            <div id="aplayer" class="offset-top">
-            </div>
-        <script src="/static/js/APlayer.min.js"></script>
     </div>
 
+    <!-- 引入外部JavaScript文件 -->
     <script src="static/js/script.js"></script>
     <script src="static/js/songs.js"></script>
-    <script>
-    const ap = new APlayer({
-        container: document.getElementById('aplayer'),
-        mini: false,
-        autoplay: false,
-        theme: '#FADFA3',
-        loop: 'all',
-        order: 'random',
-        preload: 'auto',
-        volume: 0.7,
-        mutex: true,
-        listFolded: false,
-        listMaxHeight: 90,
-        lrcType: 3,
-        audio: [
-            {
-                name: '恋愛サーキュレーション',
-                artist: '花泽香菜',
-                url: '/static/music/Kana.mp3',
-                cover: '/static/pic/kana.jpeg',
-                lrc: '/static/music/lrctest',
-                theme: '#ebd0c2'
-            },
-            {
-                name: '白金ディスコ',
-                artist: '井口裕香',
-                url: '/static/music/Disco.mp3',
-                cover: '/static/pic/disco.jpeg',
-                lrc: '/static/music/lrc2',
-                theme: '#46718b'
-            }
-        ]
-    });
-    </script>
 </body>
 </html>
