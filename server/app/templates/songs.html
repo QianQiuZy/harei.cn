@@ -7,6 +7,7 @@
     <link rel="icon" href="{{ url_for('static', filename='pic/16x16.png') }}" sizes="16x16" type="image/png">
     <link rel="stylesheet" href="{{ url_for('static', filename='CSS/sidebar.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='CSS/songs.css') }}">
+    <link rel="stylesheet" href="/static/CSS/APlayer.min.css">
     <title>花礼的歌单</title>
 </head>
 <body>
@@ -34,10 +35,51 @@
                 </div>
             </div>
         </div>
+        <link rel="stylesheet" href="APlayer.min.css">
+            <div id="aplayer" class="offset-top">
+            </div>
+        <script src="/static/js/APlayer.min.js"></script>
     </div>
+
+
+
 
 
     <script src="static/js/script.js"></script>
     <script src="static/js/songs.js"></script>
+    <script>
+    const ap = new APlayer({
+        container: document.getElementById('aplayer'),
+        mini: false,
+        autoplay: false,
+        theme: '#FADFA3',
+        loop: 'all',
+        order: 'random',
+        preload: 'auto',
+        volume: 0.7,
+        mutex: true,
+        listFolded: false,
+        listMaxHeight: 90,
+        lrcType: 3,
+        audio: [
+            {
+                name: '恋愛サーキュレーション',
+                artist: '花泽香菜',
+                url: '/static/music/Kana.mp3',
+                cover: '/static/pic/kana.jpeg',
+                lrc: '/static/music/lrctest',
+                theme: '#ebd0c2'
+            },
+            {
+                name: '白金ディスコ',
+                artist: '井口裕香',
+                url: '/static/music/Disco.mp3',
+                cover: '/static/pic/disco.jpeg',
+                lrc: '/static/music/lrc2',
+                theme: '#46718b'
+            }
+        ]
+    });
+    </script>
 </body>
 </html>

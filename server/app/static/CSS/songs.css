@@ -62,3 +62,7 @@ body {
   overflow-wrap: break-word;
 }
 
+.offset-top {
+  position: relative;
+  top: 50px;
+}
