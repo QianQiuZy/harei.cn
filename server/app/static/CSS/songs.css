@@ -84,3 +84,13 @@ body {
         flex: 3; /* 在手机上，歌手列占比4 */
     }
 }
+
+.search-area {
+  display: flex;
+  align-items: center;
+}
+
+.search-area select {
+  margin-left: 10px;
+  padding: 5px;
+}

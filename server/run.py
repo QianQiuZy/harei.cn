@@ -147,13 +147,27 @@ def message():
     # 将数据传递给模板
     return render_template("message.html", chat_data=chat_data)
 
+@app.route("/hostindex")
+def hostindex():
+    if not session.get("logged_in"):
+        return redirect(url_for("login"))
+    # 将数据传递给模板
+    return render_template("hostindex.html")
 
-@app.route("/musicadd")
+@app.route("/hostsongs")
+def hostsongs():
+    if not session.get("logged_in"):
+        return redirect(url_for("login"))
+    # 将数据传递给模板
+    return render_template("hostsongs.html")
+
+
+@app.route("/addmusic")
 def testadd():
     if not session.get("logged_in"):
         return redirect(url_for("login"))
     # 将数据传递给模板
-    return render_template("musicadd.html")
+    return render_template("addmusic.html")
 
 @app.route('/music', methods=['GET'])
 def get_all_music():
