@@ -1,95 +1,132 @@
 .profile-header {
-  display: flex;
-  align-items: center;
-}
-
-.profile-header img.avatar {
-  width: 80px;
-  height: 80px;
-  border-radius: 50%;
-  margin-right: 20px;
-}
-
-.profile-header h1 {
-  margin: 0;
-}
-
-/* hr {
-    margin: 20px 0;
-    border: 0;
-    height: 1px;
-    background-color: #ccc;
-}
-
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
-body {
-    font-family: Arial, sans-serif;
-}
-
-.container {
     display: flex;
-    height: 100vh;
-}
-
-.sidebar {
-    width: 20%;
-    background-color: #f4f4f4;
-    overflow-y: auto;
-    padding: 10px;
-    resize: horizontal;
-    overflow: auto;
-}
-
-.sidebar ul {
-    list-style: none;
-}
-
-.sidebar li {
-    margin-bottom: 10px;
-}
-
-.sidebar a {
-    text-decoration: none;
-    color: #333;
-    font-size: 18px;
-    padding: 10px;
-    display: block;
-    background-color: #fff;
-    border-radius: 4px;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-}
-
-.sidebar a:hover {
-    background-color: #ddd;
-}
-
-.content {
-    width: 80%;
-    padding: 20px;
-    overflow-y: auto;
-}
-
-.dialogue-box {
-    margin-bottom: 30px;
-}
-
-.dialogue-box h2 {
-    font-size: 24px;
-    margin-bottom: 10px;
-}
-
-.dialogue-box p {
-    font-size: 16px;
-    margin-bottom: 10px;
-}
-
-.dialogue-box img {
-    max-width: 100%;
-    height: auto;
-    border-radius: 8px;
-} */
+    align-items: center;
+  }
+  
+  .center-text {
+      position: absolute;
+      font-family: 'Great Vibes', cursive; /* 使用花体字 */
+      top: 80%; /* 调整这个值来控制文字的垂直位置 */
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 60px; /* 根据需要调整字号 */
+      font-style: italic; /* 设置斜体 */
+      color: #9c8671; /* 可根据背景调整颜色 */
+      text-align: center;
+      text-shadow: 4px 4px 8px rgba(0, 0, 0, 0.5); /* 阴影效果 */
+      animation: fadeIn 1s ease-in-out; /* 渐显效果 */
+  }
+  
+  @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+  }
+  
+  .profile-header img.avatar {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    margin-right: 20px;
+  }
+  
+  .profile-header h1 {
+    margin: 0;
+  }
+  
+  @media (max-width: 768px)
+  {
+  .center-text {
+      position: absolute;
+      font-family: 'Great Vibes', cursive; /* 使用花体字 */
+      top: 80%; /* 调整这个值来控制文字的垂直位置 */
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 36px; /* 根据需要调整字号 */
+      font-style: italic; /* 设置斜体 */
+      color: #9c8671; /* 可根据背景调整颜色 */
+      text-align: center;
+      text-shadow: 4px 4px 8px rgba(0, 0, 0, 0.5); /* 阴影效果 */
+      animation: fadeIn 1s ease-in-out; /* 渐显效果 */
+  }
+  }
+  
+  /* hr {
+      margin: 20px 0;
+      border: 0;
+      height: 1px;
+      background-color: #ccc;
+  }
+  
+  * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+  }
+  
+  body {
+      font-family: Arial, sans-serif;
+  }
+  
+  .container {
+      display: flex;
+      height: 100vh;
+  }
+  
+  .sidebar {
+      width: 20%;
+      background-color: #f4f4f4;
+      overflow-y: auto;
+      padding: 10px;
+      resize: horizontal;
+      overflow: auto;
+  }
+  
+  .sidebar ul {
+      list-style: none;
+  }
+  
+  .sidebar li {
+      margin-bottom: 10px;
+  }
+  
+  .sidebar a {
+      text-decoration: none;
+      color: #333;
+      font-size: 18px;
+      padding: 10px;
+      display: block;
+      background-color: #fff;
+      border-radius: 4px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  }
+  
+  .sidebar a:hover {
+      background-color: #ddd;
+  }
+  
+  .content {
+      width: 80%;
+      padding: 20px;
+      overflow-y: auto;
+  }
+  
+  .dialogue-box {
+      margin-bottom: 30px;
+  }
+  
+  .dialogue-box h2 {
+      font-size: 24px;
+      margin-bottom: 10px;
+  }
+  
+  .dialogue-box p {
+      font-size: 16px;
+      margin-bottom: 10px;
+  }
+  
+  .dialogue-box img {
+      max-width: 100%;
+      height: auto;
+      border-radius: 8px;
+  } */
+  

@@ -153,12 +153,7 @@ def testadd():
     if not session.get("logged_in"):
         return redirect(url_for("login"))
     # 将数据传递给模板
-
-@app.route("/addmusic")
-def addmusic():
-    # 将数据传递给模板
-    return render_template("addmusic.html")
-
+    return render_template("musicadd.html")
 
 @app.route('/music', methods=['GET'])
 def get_all_music():
@@ -198,14 +193,14 @@ def add_music():
     title = data.get('title')
     artist = data.get('artist')
     album = data.get('album', None)
-    release_date = data.get('release_date')
-    duration = data.get('duration')
+    release_date = data.get('release_date',None)
+    duration = data.get('duration',None)
     type_ = data.get('type', None)  # 获取类型字段
     language = data.get('language', None)  # 获取语言字段
     note = data.get('note', None)  # 获取备注字段
 
     # 检查必填字段是否填写
-    if not title or not artist or not release_date or not duration:
+    if not title or not artist:
         return ({'success': False, 'message': '缺少必填字段'}), 400
 
     # 使用 MusicService 创建新歌曲
@@ -225,3 +220,23 @@ def add_music():
 if __name__ == "__main__":
     app.run(port=5000)
 
+    # chat_data = [
+    #     {'id': 1, 'title': '会话 1', 'image': 'https://www.baidu.com/img/PCtm_d9c8750bed0b3c7d089fa7d55720d6cf.png'},
+    #     {'id': 2, 'title': '会话 2', 'image': 'https://www.baidu.com/img/PCtm_d9c8750bed0b3c7d089fa7d55720d6cf.png'},
+    #     {'id': 3, 'title': '会话 3', 'image': 'https://www.baidu.com/img/PCtm_d9c8750bed0b3c7d089fa7d55720d6cf.png'},
+    #     {'id': 4, 'title': '会话 4', 'image': 'https://www.baidu.com/img/PCtm_d9c8750bed0b3c7d089fa7d55720d6cf.png'},
+    #     {'id': 5, 'title': '会话 5', 'image': 'https://www.baidu.com/img/PCtm_d9c8750bed0b3c7d089fa7d55720d6cf.png'},
+    #     {'id': 6, 'title': '会话 6', 'image': 'https://www.baidu.com/img/PCtm_d9c8750bed0b3c7d089fa7d55720d6cf.png'},
+    #     {'id': 7, 'title': '会话 7', 'image': 'https://www.baidu.com/img/PCtm_d9c8750bed0b3c7d089fa7d55720d6cf.png'},
+    #     {'id': 8, 'title': '会话 8', 'image': 'https://www.baidu.com/img/PCtm_d9c8750bed0b3c7d089fa7d55720d6cf.png'},
+    #     {'id': 9, 'title': '会话 9', 'image': 'https://www.baidu.com/img/PCtm_d9c8750bed0b3c7d089fa7d55720d6cf.png'},
+    #     {'id': 10, 'title': '会话 10', 'image': 'https://www.baidu.com/img/PCtm_d9c8750bed0b3c7d089fa7d55720d6cf.png'},
+    #     {'id': 11, 'title': '会话 11', 'image': 'https://www.baidu.com/img/PCtm_d9c8750bed0b3c7d089fa7d55720d6cf.png'},
+    #     {'id': 12, 'title': '会话 12', 'image': 'https://www.baidu.com/img/PCtm_d9c8750bed0b3c7d089fa7d55720d6cf.png'},
+    #     {'id': 13, 'title': '会话 13', 'image': 'https://www.baidu.com/img/PCtm_d9c8750bed0b3c7d089fa7d55720d6cf.png'},
+    #     {'id': 14, 'title': '会话 14', 'image': 'https://www.baidu.com/img/PCtm_d9c8750bed0b3c7d089fa7d55720d6cf.png'},
+    #     {'id': 15, 'title': '会话 15', 'image': 'https://www.baidu.com/img/PCtm_d9c8750bed0b3c7d089fa7d55720d6cf.png'},
+    #     {'id': 16, 'title': '会话 16', 'image': 'https://www.baidu.com/img/PCtm_d9c8750bed0b3c7d089fa7d55720d6cf.png'},
+    #     {'id': 17, 'title': '会话 17', 'image': 'https://www.baidu.com/img/PCtm_d9c8750bed0b3c7d089fa7d55720d6cf.png'},
+    #     {'id': 18, 'title': '会话 18', 'image': 'https://www.baidu.com/img/PCtm_d9c8750bed0b3c7d089fa7d55720d6cf.png'}
+    # ]

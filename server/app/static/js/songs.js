@@ -26,11 +26,11 @@ document.addEventListener('DOMContentLoaded', function() {
             row.classList.add('table-row');
             console.log(song);
             row.innerHTML = `
-                <span class="song-name">${song.title}</span>
-                <span class="artist-name">${song.artist}</span>
-                <span class="song-type">${song.type || '无'}</span>
-                <span class="song-language">${song.language || '无'}</span>
-                <span class="song-note">${song.note || '无'}</span>
+                <span class="title">${song.title}</span>
+                <span class="artist">${song.artist}</span>
+                <span class="type">${song.type || '无'}</span>
+                <span class="language">${song.language || '无'}</span>
+                <span class="note">${song.note || '无'}</span>
             `;
             songTableContent.appendChild(row);
         });

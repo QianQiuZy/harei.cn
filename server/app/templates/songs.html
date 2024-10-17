@@ -3,6 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="https://qianqiuzy-1313476938.cos.ap-shanghai.myqcloud.com/32x32.png" sizes="32x32" type="image/png">
+    <link rel="icon" href="https://qianqiuzy-1313476938.cos.ap-shanghai.myqcloud.com/16x16.png" sizes="16x16" type="image/png">
     <link rel="stylesheet" href="{{ url_for('static', filename='CSS/sidebar.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='CSS/songs.css') }}">
     <title>花礼的歌单</title>
@@ -20,11 +22,11 @@
 
             <div class="song-table">
                 <div class="table-header">
-                    <span class="song-name">歌曲名称</span>
-                    <span class="artist-name">歌手</span>
-                    <span class="song-type">类型</span>
-                    <span class="song-language">语言</span>
-                    <span class="song-note">备注</span>
+                    <span class="title">歌曲名称</span>
+                    <span class="artist">歌手</span>
+                    <span class="type">类型</span>
+                    <span class="language">语言</span>
+                    <span class="note">备注</span>
                 </div>
                 <div class="table-content" id="song-table-content">
                     <!-- 动态加载的歌曲将插入到这里 -->

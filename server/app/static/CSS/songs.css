@@ -39,30 +39,48 @@ body {
   background-color: #fff;
 }
 
-.song-name {
+.title {
   flex: 4;
 }
 
-.artist-name {
+.artist {
   flex: 3;
 }
-.song-type {
-  flex: 3;
+.type {
+  flex: 2;
 }
-.song-language {
-  flex: 3;
+.language {
+  flex: 1;
 }
-.song-note {
-  flex: 3;
+.note {
+  flex: 1;
 }
+
 
 .word-wrap {
-  word-wrap: break-word;
-  white-space: normal;
-  overflow-wrap: break-word;
+    word-wrap: break-word; /* 确保长单词换行 */
+    white-space: normal; /* 允许文本换行 */
+    overflow-wrap: break-word; /* 防止长词撑破单元格 */
 }
 
-.offset-top {
-  position: relative;
-  top: 50px;
+/* 媒体查询 - 手机端适配 */
+@media (max-width: 768px)
+{
+    #artist-select,
+    #genre-select,
+    #language-select,
+    .type,
+    .language,
+    .note
+    {
+        display: none; /* 隐藏类型和备注列 */
+    }
+
+    .title {
+        flex: 7; /* 在手机上，歌曲列占比6 */
+    }
+
+    .artist {
+        flex: 3; /* 在手机上，歌手列占比4 */
+    }
 }
