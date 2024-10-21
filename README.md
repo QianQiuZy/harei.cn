@@ -37,9 +37,11 @@ PPPS：感谢两位开发大佬的付出
 
 ### 开发人员感谢
 
-[しぐれそら的B站](https://space.bilibili.com/16547)
+[しぐれそら](https://space.bilibili.com/16547)
 
-[米凯拉的锋刃z的B站](https://space.bilibili.com/4328663)
+[米凯拉的锋刃z](https://space.bilibili.com/4328663)
+
+[夜丶阑雨](https://space.bilibili.com/254086959)
 
 ### 费用估算
 
