@@ -164,9 +164,9 @@ def reject_message(message_id):
 @app.route('/archive', methods=['POST'])
 def archive_all_messages():
     # 获取所有状态为 'approved' 的消息，并将它们状态更新为 'archived'
-    messages_to_archive = MessageService.get_messages_by_status('approved')
+    messages_to_archive = MessageService.get_approved_messages()
     for message in messages_to_archive:
-        MessageService.update_message_status(message.id, 'archived')
+        MessageService.update_message_status(message.message_id, 'archived')
     # 返回 JSON 响应
     return jsonify({'message': f'{len(messages_to_archive)} 条消息已归档'})
 

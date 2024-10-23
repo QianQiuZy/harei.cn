@@ -35,7 +35,7 @@ body {
 
 /* 左侧会话列表 */
 .chat-list {
-  width: 30%;
+  width: 50%;
   background-color: #fff;
   padding: 10px;
   overflow-y: auto;
@@ -79,7 +79,7 @@ body {
 
 /* 右侧会话内容区域 */
 .chat-content {
-  width: 70%;
+  width: 50%;
   padding: 20px;
   background-color: #f7f7f7;
   overflow-y: auto;
