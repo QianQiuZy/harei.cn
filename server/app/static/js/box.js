@@ -61,22 +61,37 @@ document
         method: "POST",
         body: formData,
       })
-        .then((response) => response.json())
+        .then((response) => {
+          // 检查响应是否为JSON
+          if (!response.ok) {
+            return response.json().then((data) => Promise.reject(data));
+          }
+          return response.json();
+        })
         .then((data) => {
           if (data.success) {
-            document.getElementById("success-message").style.display =
-              "block";
+            // 显示模态框
+            const modal = document.getElementById("success-modal");
+            modal.style.display = "block";
+            
+            // 清空输入框和缩略图
             document.getElementById("message-input").value = "";
             thumbnailContainer.innerHTML = ""; // 清空缩略图
             imageInput.value = ""; // 重置文件输入框
             selectedImages = []; // 清空已选图片
+        
+            // 2秒后隐藏模态框并刷新页面
             setTimeout(() => {
-              window.location.reload();
-            }, 2000);
+              modal.style.display = "none";
+              window.location.reload(); // 刷新页面
+            }, 2000); // 2秒后自动刷新
           }
         })
+        
+        
         .catch((error) => {
           console.error("Error:", error);
+          alert("提交失败: " + (error.error || "未知错误"));
         });
     } else {
       alert("请填写你的内容或选择至少一张图片!");

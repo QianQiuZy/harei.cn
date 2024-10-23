@@ -1,0 +1,80 @@
+/* static/CSS/audit.css */
+
+/* 审核按钮样式 */
+.action-buttons {
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+    display: flex;
+    gap: 15px;
+}
+
+.action-buttons form {
+    display: inline;
+}
+
+.action-buttons button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.action-buttons .approve-button {
+    background-color: #2ecc71;
+    color: white;
+}
+
+.action-buttons .approve-button:hover {
+    background-color: #27ae60;
+}
+
+.action-buttons .reject-button {
+    background-color: #e74c3c;
+    color: white;
+}
+
+.action-buttons .reject-button:hover {
+    background-color: #c0392b;
+}
+
+/* 确保 chat-content 位置相对，以便按钮定位 */
+.chat-content {
+    position: relative;
+}
+
+/* 图片缩略图样式保持一致 */
+.thumbnail {
+    width: 100px; /* 设置缩略图宽度 */
+    cursor: pointer; /* 鼠标悬停时显示为手指 */
+    margin-bottom: 10px;
+    border-radius: 5px;
+}
+
+/* 全图样式 */
+.full-image {
+    max-width: 100%; /* 全图最大宽度 */
+    border-radius: 10px; /* 圆角效果 */
+    margin-bottom: 10px; /* 下边距 */
+}
+
+.image-modal {
+    display: none;
+    position: absolute; /* 更改为绝对定位 */
+    top: 0;
+    right: 0; /* 使其在右侧 */
+    width: 100%; /* 根据需要调整宽度 */
+    height: 100%; /* 覆盖整个右侧栏 */
+    background-color: rgba(0, 0, 0, 0.8); /* 半透明黑色背景 */
+    justify-content: center;
+    align-items: center;
+    z-index: 1000; /* 确保模态框在其他元素之上 */
+}
+.image-modal img {
+    max-width: none; /* 允许任意大小 */
+    max-height: none; /* 允许任意高度 */
+    transition: transform 0.2s; /* 添加平滑缩放效果 */
+    cursor: move; /* 添加移动光标 */
+}

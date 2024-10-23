@@ -39,3 +39,24 @@
 #submit-button:hover {
   background-color: #45a049;
 }
+
+/* 模态框的样式 */
+.modal {
+  display: none; /* 隐藏 */
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5); /* 半透明黑色背景 */
+}
+
+.modal-content {
+  background-color: white;
+  margin: 15% auto;
+  padding: 20px;
+  border-radius: 10px;
+  width: 300px;
+  text-align: center;
+}

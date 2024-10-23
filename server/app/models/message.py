@@ -9,6 +9,7 @@ class Message(db.Model):
     message_id = db.Column(db.Integer, primary_key=True, autoincrement=True)  # 自增主键
     guest_id = db.Column(db.String(255), nullable=False)  # 访客 ID
     message_text = db.Column(db.Text, nullable=True)  # 留言内容
+    status = db.Column(db.String(20), nullable=False, default='pending') #审核状态
     created_at = db.Column(db.DateTime, default=datetime.now)  # 创建时间
 
     def __repr__(self):

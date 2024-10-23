@@ -76,30 +76,29 @@ def upload():
     )
     print(f"Message saved successfully with ID: {new_message.message_id}")
 
-    # 处理多张图片上传
-    if not files:
-        return ({"success": False, "error": "At least one image is required."}), 400
-
     uploaded_image_paths = []
-    for key, image in files.items():
-        # 生成保存图片的路径
-        image_path = os.path.join(app.config["UPLOAD_FOLDER"], image.filename)
-        print(os.getcwd())
-        # 保存图片到服务器文件夹
-        image.save(image_path)
-        print(f"Saved image to {image_path}")
-        # 保存图片记录到数据库，关联到刚创建的消息
-        ImageService.create_image(
-            message_id=new_message.message_id, image_path=image_path
-        )
-        uploaded_image_paths.append(image_path)
 
-    # 返回成功响应
-    return {
+    # 处理多张图片上传
+    if files:
+        for key, image in files.items():
+            # 生成保存图片的路径
+            image_path = os.path.join(app.config["UPLOAD_FOLDER"], image.filename)
+            print(os.getcwd())
+            # 保存图片到服务器文件夹
+            image.save(image_path)
+            print(f"Saved image to {image_path}")
+            # 保存图片记录到数据库，关联到刚创建的消息
+            ImageService.create_image(
+                message_id=new_message.message_id, image_path=image_path
+            )
+            uploaded_image_paths.append(image_path)
+
+    # 返回成功响应，哪怕没有上传图片
+    return jsonify({
         "success": True,
         "message_id": new_message.message_id,
-        "uploaded_images": uploaded_image_paths,
-    }
+        "uploaded_images": uploaded_image_paths
+    })
 
 
 @app.route("/uploads/<filename>", methods=["GET"])
@@ -115,12 +114,68 @@ def uploaded_file(filename):
     # 使用 send_from_directory 从指定目录中发送文件
     return send_from_directory(uploads_path, filename)
 
+@app.route("/audit")
+def audit():
+    if not session.get("logged_in"):
+        return redirect(url_for("login"))
+
+    # 获取所有待审核的消息
+    pending_messages = MessageService.get_pending_messages()
+
+    # 构造 chat_data 列表，每个消息包含 id、title（消息文本）、images（与消息相关联的所有图片）
+    chat_data = []
+    for msg in pending_messages:
+        # 获取与该消息相关联的所有图片
+        images = ImageService.get_images_by_message_id(msg.message_id)
+
+        # 如果有图片，将所有图片路径添加到列表中；如果没有，则使用默认图片
+        if images:
+            image_urls = [image.image_path.replace('/www/wwwroot/harei/server/', '') for image in images]
+            print(image_urls)
+        else:
+            image_urls = []  # 使用占位符图片
+
+        # 构造消息字典并添加到 chat_data 列表中
+        chat_data.append(
+            {
+                "id": msg.message_id,
+                "date": msg.created_at,
+                "msg": msg.message_text,
+                "title": msg.message_text[:20],  # 使用消息内容的前 20 个字符作为标题
+                "images": image_urls,  # 保存所有图片路径
+            }
+        )
+
+    # 将数据传递给模板
+    return render_template("audit.html", chat_data=chat_data)
+
+@app.route('/audit/approve/<int:message_id>', methods=['POST'])
+def approve_message(message_id):
+    # 审核通过，将状态更新为 'approved'
+    MessageService.update_message_status(message_id, 'approved')
+    return jsonify({"message": "消息已通过审核"}), 200
+
+@app.route('/audit/reject/<int:message_id>', methods=['POST'])
+def reject_message(message_id):
+    # 删除未通过的留言
+    MessageService.delete_message(message_id)
+    return jsonify({"message": "消息已删除"}), 200
+
+@app.route('/archive', methods=['POST'])
+def archive_all_messages():
+    # 获取所有状态为 'approved' 的消息，并将它们状态更新为 'archived'
+    messages_to_archive = MessageService.get_messages_by_status('approved')
+    for message in messages_to_archive:
+        MessageService.update_message_status(message.id, 'archived')
+    # 返回 JSON 响应
+    return jsonify({'message': f'{len(messages_to_archive)} 条消息已归档'})
+
 
 @app.route("/message")
 def message():
     if not session.get("logged_in"):
         return redirect(url_for("login"))
-    messages = MessageService.get_all_messages()
+    messages = MessageService.get_approved_messages()
 
     # 构造 chat_data 列表，每个消息包含 id、title（消息文本）、images（与消息相关联的所有图片）
     chat_data = []
@@ -139,6 +194,8 @@ def message():
         chat_data.append(
             {
                 "id": msg.message_id,
+                "date": msg.created_at,
+                "msg": msg.message_text,
                 "title": msg.message_text[:20],  # 使用消息内容的前 20 个字符作为标题
                 "images": image_urls,  # 保存所有图片路径
             }

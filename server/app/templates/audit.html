@@ -1,13 +1,16 @@
+<!-- templates/audit.html -->
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>审核界面</title>
     <link rel="icon" href="https://qianqiuzy-1313476938.cos.ap-shanghai.myqcloud.com/32x32.png" sizes="32x32" type="image/png">
     <link rel="icon" href="https://qianqiuzy-1313476938.cos.ap-shanghai.myqcloud.com/16x16.png" sizes="16x16" type="image/png">
     <link rel="stylesheet" href="{{ url_for('static', filename='CSS/host.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='CSS/message.css') }}">
-    <title>花礼的提问箱</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='CSS/audit.css') }}">
+    <title>花礼的审核界面</title>
 </head>
 <body>
     <div id="overlay" class="overlay"></div>
@@ -34,7 +37,15 @@
                             {% for image_url in chat.images %}
                                 <img src="{{ image_url }}" alt="缩略图" class="thumbnail" data-full-image="{{ image_url }}">
                             {% endfor %}
-                            <!-- 归档按钮 -->
+                            <!-- 审核按钮放在右下角 -->
+                            <div class="action-buttons">
+                                <form action="{{ url_for('approve_message', message_id=chat.id) }}" method="POST">
+                                    <button type="submit" class="approve-button">通过审核</button>
+                                </form>
+                                <form action="{{ url_for('reject_message', message_id=chat.id) }}" method="POST">
+                                    <button type="submit" class="reject-button">删除留言</button>
+                                </form>
+                            </div>
                         </div>
                     {% endfor %}
                     <!-- 模态框 -->
@@ -43,10 +54,9 @@
                     </div>
                 </div>
             </div>
-            <button class="archive-all-button">一键归档已审核消息</button>
         </div>
     </div>
     <script src="{{ url_for('static', filename='js/script.js') }}"></script>
-    <script src="{{ url_for('static', filename='js/message.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/audit.js') }}"></script>
 </body>
 </html>
