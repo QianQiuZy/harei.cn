@@ -28,6 +28,11 @@ body {
   z-index: 0;
 }
 
+.main-content {
+  padding: 30px;
+  padding-bottom: 40px;
+}
+
 .profile-section {
   background-color: rgba(255, 255, 255, 0.9);
   padding: 20px;
@@ -38,11 +43,8 @@ body {
   bottom: 30px;
   opacity: 0.9;
   z-index: 1;
-}
-
-.main-content {
-  padding: 30px;
-  padding-bottom: 40px;
+  width: 100%; /* 确保宽度填满父元素 */
+  box-sizing: border-box; /* 包括内边距和边框在内 */
 }
 
 .menu-icon {
