@@ -30,45 +30,53 @@ body {
 
 .profile-section {
   background-color: rgba(255, 255, 255, 0.9);
-  padding: 30px;
+  padding: 20px;
   border-radius: 20px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   position: relative;
   top: 10px;
-  transition: margin-left 0.3s;
   bottom: 30px;
-  opacity: 0.8;
+  opacity: 0.9;
   z-index: 1;
 }
 
 .main-content {
-  margin-left: 60px;
-  padding: 20px;
-  transition: margin-left 0.3s;
-  padding-bottom: 10px;
-}
-
-.sidebar {
-  width: 60px;
-  height: 100%;
-  position: fixed;
-  top: 0;
-  left: 0;
-  background-color: #333;
-  overflow: hidden;
-  transition: width 0.3s;
-  z-index: 2;
-}
-
-.sidebar.open {
-  width: 200px;
+  padding: 30px;
+  padding-bottom: 40px;
 }
 
 .menu-icon {
-  color: white;
+  color: black;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
   font-size: 24px;
   padding: 10px;
   cursor: pointer;
+  background-color: transparent; /* menu-icon 背景透明 */
+  position: fixed; /* 固定在左上角 */
+  top: 0; /* 距离顶部 */
+  left: 0; /* 距离左侧 */
+  z-index: 3; /* 确保其在最上层 */
+}
+
+.sidebar {
+  width: 200px; /* 展开时宽度 */
+  height: 100%; /* 始终占满高度 */
+  position: fixed;
+  top: 0;
+  left: 0;
+  background-color: #333; /* 边栏背景色 */
+  transition: transform 0.3s ease; /* 添加平滑过渡 */
+  transform: translateX(-100%); /* 默认完全隐藏 */
+  z-index: 2;
+  padding-top: 50px; /* 确保内容距离顶部有一定间距，避免与 menu-icon 重叠 */
+}
+
+.sidebar.open {
+  transform: translateX(0); /* 打开时显示边栏 */
+}
+
+.icon-group {
+  display: block; /* 始终保持显示 */
 }
 
 .icon-item {
