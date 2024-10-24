@@ -70,3 +70,22 @@ class ImageService:
     #     print(f"Deleted Image ID: {deleted_image.image_id}")
     # else:
     #     print("Image not found")
+
+
+    @staticmethod
+    def update_image(image_id, message_id=None, image_path=None):
+        """
+        更新图片记录信息
+        :param image_id: 需要更新的图片ID
+        :param message_id: 更新后的消息ID（可选）
+        :param image_path: 更新后的图片路径（可选）
+        :return: 更新后的Image实例，如果图片不存在则返回None
+        """
+        image = Image.query.filter_by(image_id=image_id).first()
+        if image:
+            if message_id:
+                image.message_id = message_id
+            if image_path:
+                image.image_path = image_path
+            db.session.commit()  # 提交更新
+        return image

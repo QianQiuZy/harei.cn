@@ -81,16 +81,29 @@ def upload():
     # 处理多张图片上传
     if files:
         for key, image in files.items():
-            # 生成保存图片的路径
-            image_path = os.path.join(app.config["UPLOAD_FOLDER"], image.filename)
-            print(os.getcwd())
+            # 使用安全的文件名（防止路径注入等风险）
+            original_filename = image.filename
+
+            # 首先在数据库中创建一条记录，image_path 先设为空
+            new_image = ImageService.create_image(
+                message_id=new_message.message_id, image_path=""
+            )
+
+            # 生成基于 image_id 的文件名，确保唯一性
+            image_filename = f"image_{new_image.image_id}_{original_filename}"
+            image_path = os.path.join(app.config["UPLOAD_FOLDER"], image_filename)
+
             # 保存图片到服务器文件夹
             image.save(image_path)
             print(f"Saved image to {image_path}")
-            # 保存图片记录到数据库，关联到刚创建的消息
-            ImageService.create_image(
-                message_id=new_message.message_id, image_path=image_path
-            )
+
+            # 更新数据库中的 image_path 字段
+            # new_image.image_path = image_path
+
+            ImageService.update_image(image_id=new_image.image_id, image_path=image_path)
+            # db.session.commit()  # 提交更新
+
+            # 记录上传的图片路径
             uploaded_image_paths.append(image_path)
 
     # 返回成功响应，哪怕没有上传图片
@@ -107,6 +120,7 @@ def uploaded_file(filename):
     uploads_path = os.path.abspath(
         os.path.join(app.config["UPLOAD_FOLDER"], "../uploads")
     )
+    # uploads_path = app.config["UPLOAD_FOLDER"]
 
     # 打印调试信息
     print("Serving file from directory:", uploads_path)
