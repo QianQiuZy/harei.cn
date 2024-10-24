@@ -183,3 +183,9 @@ body {
   background-color: #3e8e41; /* 点击时变暗 */
   transform: scale(0.98); /* 点击时缩小一点 */
 }
+
+.chatmsg {
+  white-space: pre-wrap; 
+  word-wrap: break-word; 
+  overflow-wrap: break-word;
+}

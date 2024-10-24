@@ -27,8 +27,8 @@
                 <div class="chat-content">
                     {% for chat in chat_data %}
                         <div id="chat-{{ chat.id }}" class="chat-box" style="display: none;">
-                            <h2>{{ chat.title }}</h2>
-                            <p>{{ chat.msg }}</p>
+                            <h2>{{ chat.date }}</h2>
+                            <br class="chatmsg">{{ chat.msg }}</br>
                             
                             <!-- 遍历并显示所有与该消息关联的图片 -->
                             {% for image_url in chat.images %}

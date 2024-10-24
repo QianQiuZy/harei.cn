@@ -78,3 +78,9 @@
     transition: transform 0.2s; /* 添加平滑缩放效果 */
     cursor: move; /* 添加移动光标 */
 }
+
+.chatmsg {
+    white-space: pre-wrap; 
+    word-wrap: break-word; 
+    overflow-wrap: break-word;
+}
