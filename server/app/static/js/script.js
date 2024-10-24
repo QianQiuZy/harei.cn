@@ -113,5 +113,5 @@ const texts = [
 // 随机选择一个文字并展示
 document.addEventListener("DOMContentLoaded", function() {
     const randomText = texts[Math.floor(Math.random() * texts.length)];
-    document.getElementById('randomText').textContent = randomText;
+    document.getElementById('randomText').textContent = `"${randomText}"`;
 });
