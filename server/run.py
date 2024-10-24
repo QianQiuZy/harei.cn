@@ -25,8 +25,8 @@ for folder in [UPLOAD_FOLDER]:
     if not os.path.exists(folder):
         os.makedirs(folder)
 
-username = "harei"
-hashed_password = generate_password_hash("hareillbc0301")
+username = "00000"
+hashed_password = generate_password_hash("00000")
 
 
 @app.route("/")
