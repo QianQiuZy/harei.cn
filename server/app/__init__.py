@@ -12,7 +12,7 @@ def create_app():
 
     # 配置数据库 URI（例如 SQLite、MySQL、PostgreSQL）
     app.config["SQLALCHEMY_DATABASE_URI"] = (
-        "mysql+pymysql://harei:hareillbc0301@localhost:3306/harei"
+        "mysql+pymysql://root:12345678@localhost:3306/root"
     )
     app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
     app.config["UPLOAD_FOLDER"] = "/www/wwwroot/harei/server/uploads"
