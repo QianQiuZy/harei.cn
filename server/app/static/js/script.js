@@ -100,3 +100,18 @@ document.addEventListener("DOMContentLoaded", function() {
             document.getElementById('host-sidebar-container').innerHTML = data;
         });
 });
+
+// 随机文字列表
+const texts = [
+    "礼礼不串",
+    "llbc",
+    "你好我是花礼harei",
+    "我才不是串子呢",
+    "CUTE~"
+];
+
+// 随机选择一个文字并展示
+document.addEventListener("DOMContentLoaded", function() {
+    const randomText = texts[Math.floor(Math.random() * texts.length)];
+    document.getElementById('randomText').textContent = randomText;
+});

@@ -1,132 +1,109 @@
-.profile-header {
-    display: flex;
-    align-items: center;
-  }
-  
-  .center-text {
-      position: absolute;
-      font-family: 'Great Vibes', cursive; /* 使用花体字 */
-      top: 80%; /* 调整这个值来控制文字的垂直位置 */
-      left: 50%;
-      transform: translate(-50%, -50%);
-      font-size: 60px; /* 根据需要调整字号 */
-      font-style: italic; /* 设置斜体 */
-      color: #9c8671; /* 可根据背景调整颜色 */
-      text-align: center;
-      text-shadow: 4px 4px 8px rgba(0, 0, 0, 0.5); /* 阴影效果 */
-      animation: fadeIn 1s ease-in-out; /* 渐显效果 */
-  }
-  
-  @keyframes fadeIn {
-      from { opacity: 0; }
-      to { opacity: 1; }
-  }
-  
-  .profile-header img.avatar {
-    width: 80px;
-    height: 80px;
+@import url('https://static.zeoseven.com/cn/219/main/result.css');
+
+html {
+    font-family: "Child Fun Sans Demo";
+    font-weight: normal;
+}
+
+.index-head h1 {
+    font-family: 'Child Fun Sans Demo', serif; /* 设置标题字体为 Playfair Display */
+}
+
+/* 头像和名称 */
+.index-head {
+    text-align: center;
+    margin-top: 10px; /* 更紧凑的间距 */
+    z-index: 1;
+    background: none; /* 去掉背景 */
+}
+
+.avatar {
+    width: 200px;
+    height: 200px;
     border-radius: 50%;
-    margin-right: 20px;
-  }
-  
-  .profile-header h1 {
-    margin: 0;
-  }
-  
-  @media (max-width: 768px)
-  {
-  .center-text {
-      position: absolute;
-      font-family: 'Great Vibes', cursive; /* 使用花体字 */
-      top: 80%; /* 调整这个值来控制文字的垂直位置 */
-      left: 50%;
-      transform: translate(-50%, -50%);
-      font-size: 36px; /* 根据需要调整字号 */
-      font-style: italic; /* 设置斜体 */
-      color: #9c8671; /* 可根据背景调整颜色 */
-      text-align: center;
-      text-shadow: 4px 4px 8px rgba(0, 0, 0, 0.5); /* 阴影效果 */
-      animation: fadeIn 1s ease-in-out; /* 渐显效果 */
-  }
-  }
-  
-  /* hr {
-      margin: 20px 0;
-      border: 0;
-      height: 1px;
-      background-color: #ccc;
-  }
-  
-  * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-  }
-  
-  body {
-      font-family: Arial, sans-serif;
-  }
-  
-  .container {
-      display: flex;
-      height: 100vh;
-  }
-  
-  .sidebar {
-      width: 20%;
-      background-color: #f4f4f4;
-      overflow-y: auto;
-      padding: 10px;
-      resize: horizontal;
-      overflow: auto;
-  }
-  
-  .sidebar ul {
-      list-style: none;
-  }
-  
-  .sidebar li {
-      margin-bottom: 10px;
-  }
-  
-  .sidebar a {
-      text-decoration: none;
-      color: #333;
-      font-size: 18px;
-      padding: 10px;
-      display: block;
-      background-color: #fff;
-      border-radius: 4px;
-      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-  }
-  
-  .sidebar a:hover {
-      background-color: #ddd;
-  }
-  
-  .content {
-      width: 80%;
-      padding: 20px;
-      overflow-y: auto;
-  }
-  
-  .dialogue-box {
-      margin-bottom: 30px;
-  }
-  
-  .dialogue-box h2 {
-      font-size: 24px;
-      margin-bottom: 10px;
-  }
-  
-  .dialogue-box p {
-      font-size: 16px;
-      margin-bottom: 10px;
-  }
-  
-  .dialogue-box img {
-      max-width: 100%;
-      height: auto;
-      border-radius: 8px;
-  } */
-  
+    margin-bottom: 5px; /* 更紧凑的间距 */
+    border: 4px solid white; /* 头像白边 */
+    transition: transform 0.3s ease;
+}
+
+.avatar:hover {
+    transform: scale(1.2);
+}
+
+h1 {
+    font-size: 48px;
+    color: #333;
+    font-family: 'Child Fun Sans Demo', cursive; /* 更文雅的字体 */
+    margin-bottom: 5px; /* 更紧凑的间距 */
+}
+
+/* 长条型URL */
+.url-banner {
+    text-align: center;
+    margin-top: 5px; /* 更紧凑的间距 */
+}
+
+.banner-img {
+    width: 20%;
+    height: auto;
+    transition: transform 0.2s ease;
+}
+
+.banner-img:hover {
+    transform: scale(1.1);
+}
+
+.banner-text {
+    font-size: 10px; /* 根据需要调整字号 */
+    color: #333; /* 根据背景调整颜色 */
+    margin-top: 5px; /* 控制与图片的间距 */
+    font-family: 'Child Fun Sans Demo', cursive; /* 更文雅的字体 */
+}
+
+/* 两个方块型URL */
+.url-grid {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin-top: 10px; /* 更紧凑的间距 */
+}
+
+.grid-item {
+    text-align: center;
+}
+
+.grid-img {
+    width: 100px;
+    height: 100px;
+    transition: transform 0.2s ease;
+}
+
+.grid-img:hover {
+    transform: scale(1.1);
+}
+
+.grid-text {
+    margin-top: 5px; /* 更紧凑的间距 */
+    font-size: 14px; /* 适度增大文字大小 */
+    color: #333;
+    text-decoration: none; /* 去掉下划线 */
+    font-family: 'Child Fun Sans Demo', cursive; /* 更文雅的字体 */
+}
+
+/* 随机展示文字 */
+.random-text {
+    text-align: center;
+    margin-top: 15px; /* 更紧凑的间距 */
+    font-size: 48px;
+    color: #666;
+    font-family: 'Child Fun Sans Demo', cursive; /* 更文雅的字体 */
+}
+
+/* 主内容居中 */
+.main-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    z-index: 1; /* 确保主内容在其他元素之上 */
+    position: relative; /* 相对定位，确保内容可以正常显示 */
+}
