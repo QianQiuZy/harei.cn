@@ -3,16 +3,14 @@ from app import db
 
 class MusicService:
     @staticmethod
-    def create_music(title, artist, album=None, release_date=None, duration=None, type=None, language=None, note=None):
+    def create_music(title, artist, type=None, language=None, note=None):
         """
         创建新的音乐条目
         """
+        # 创建新的音乐条目，匹配现有的Music模型
         new_music = Music.create(
             title=title,
             artist=artist,
-            album=album,
-            release_date=release_date,
-            duration=duration,
             type=type,
             language=language,
             note=note
@@ -34,7 +32,7 @@ class MusicService:
         return Music.query.filter_by(music_id=music_id).first()
 
     @staticmethod
-    def update_music(music_id, title=None, artist=None, album=None, release_date=None, duration=None, type=None, language=None, note=None):
+    def update_music(music_id, title=None, artist=None, type=None, language=None, note=None):
         """
         更新音乐信息
         """
@@ -44,12 +42,6 @@ class MusicService:
                 music.title = title
             if artist:
                 music.artist = artist
-            if album:
-                music.album = album
-            if release_date:
-                music.release_date = release_date
-            if duration:
-                music.duration = duration
             if type:
                 music.type = type
             if language:

@@ -234,24 +234,20 @@ def get_all_music():
     music_list = MusicService.get_all_music()  # 从 MusicService 获取所有音乐
     # 将音乐对象转换为可序列化的 JSON 格式
     music_data = []
-    
+
     for music in music_list:
-        print(music)
         music_data.append({
             'music_id': music.music_id,
             'title': music.title,
             'artist': music.artist,
-            'album': music.album,
-            'release_date': music.release_date.strftime('%Y-%m-%d') if music.release_date else None,
-            'duration': music.duration,
             'type': music.type,  # 添加类型字段
             'language': music.language,  # 添加语言字段
-            'note': music.note,  # 添加备注字段
-            'created_at': music.created_at.strftime('%Y-%m-%d %H:%M:%S')
+            'note': music.note  # 添加备注字段
         })
     
     # 返回 JSON 响应
     return (music_data), 200
+
 
 @app.route('/add-music', methods=['POST'])
 def add_music():
@@ -263,9 +259,6 @@ def add_music():
     # 获取前端提交的字段
     title = data.get('title')
     artist = data.get('artist')
-    album = data.get('album', None)
-    release_date = data.get('release_date',None)
-    duration = data.get('duration',None)
     type_ = data.get('type', None)  # 获取类型字段
     language = data.get('language', None)  # 获取语言字段
     note = data.get('note', None)  # 获取备注字段
@@ -278,15 +271,13 @@ def add_music():
     new_music = MusicService.create_music(
         title=title,
         artist=artist,
-        album=album,
-        release_date=release_date,
-        duration=int(duration),  # 确保 duration 是整数
         type=type_,  # 添加类型字段
         language=language,  # 添加语言字段
         note=note  # 添加备注字段
     )
 
     return ({'success': True, 'music_id': new_music.music_id}), 200
+
 
 if __name__ == "__main__":
     app.run(port=5000)

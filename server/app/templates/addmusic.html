@@ -132,15 +132,13 @@
             event.preventDefault();  // 阻止默认表单提交动作
 
             const formData = {
-                title: document.getElementById('title').value,
-                artist: document.getElementById('artist').value,
-                album: "",
-                release_date: "2000.1.1",
-                duration: 1,
-                type: document.getElementById('type').value,
-                language: document.getElementById('language').value,
-                note: document.getElementById('note').value
+                title: document.getElementById('title').value,  // 音乐标题
+                artist: document.getElementById('artist').value,  // 艺术家
+                type: document.getElementById('type').value,  // 音乐类型
+                language: document.getElementById('language').value,  // 语言
+                note: document.getElementById('note').value  // 备注
             };
+
 
             fetch('/add-music', {
                 method: 'POST',
