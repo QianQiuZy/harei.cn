@@ -115,3 +115,34 @@ document.addEventListener("DOMContentLoaded", function() {
     const randomText = texts[Math.floor(Math.random() * texts.length)];
     document.getElementById('randomText').textContent = `"${randomText}"`;
 });
+
+/*此功能保留，请求头需要带上cookie才可获取，后续做到后端api.harei.cn中
+document.addEventListener("DOMContentLoaded", function() {
+    const liveStatusText = document.getElementById("liveStatus");
+
+    // 定义检查直播状态的函数
+    function checkLiveStatus() {
+        const roomId = 1820703922; // 替换为您的直播间ID
+        fetch(`https://api.live.bilibili.com/room/v1/Room/get_info?room_id=${roomId}`)
+            .then(response => response.json())
+            .then(data => {
+                // 根据data中的直播状态进行判断
+                if (data.data && data.data.live_status === 1) {
+                    liveStatusText.textContent = "直播中";
+                } else {
+                    liveStatusText.textContent = "未开播";
+                }
+            })
+            .catch(error => {
+                console.error("获取直播状态失败:", error);
+                liveStatusText.textContent = "直播状态未知"; // 错误时显示默认状态
+            });
+    }
+
+    // 初次加载时检查直播状态
+    checkLiveStatus();
+
+    // 每隔1分钟更新一次直播状态
+    setInterval(checkLiveStatus, 1 * 60 * 1000);
+});
+*/
