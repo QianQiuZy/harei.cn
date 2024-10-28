@@ -24,10 +24,22 @@ document.addEventListener('DOMContentLoaded', function() {
     thumbnails.forEach(thumbnail => {
         thumbnail.addEventListener('click', () => {
             modalImg.src = thumbnail.dataset.fullImage;
+
+            // 初始显示时将图片根据展示区域大小进行适当缩放
             modal.style.display = 'flex';
-            modalImg.style.transform = 'translate(0px, 0px) scale(1)'; // 重置缩放和位置
-            modalImg.setAttribute('data-x', 0);
-            modalImg.setAttribute('data-y', 0);
+            modalImg.onload = () => {
+                const imgWidth = modalImg.naturalWidth;
+                const imgHeight = modalImg.naturalHeight;
+                const containerWidth = window.innerWidth / 2; // 右侧内容区域的宽度
+                const containerHeight = window.innerHeight;    // 右侧内容区域的高度
+
+                // 计算初始缩放比例，使图片不超过右侧显示区域的大小
+                let initialScale = Math.min(containerWidth / imgWidth, containerHeight / imgHeight, 1);
+                modalImg.style.transform = `translate(0px, 0px) scale(${initialScale})`; 
+                modalImg.setAttribute('data-x', 0);
+                modalImg.setAttribute('data-y', 0);
+                modalImg.scale = initialScale;  // 存储初始缩放比例
+            };
         });
     });
 
@@ -81,8 +93,8 @@ document.addEventListener('DOMContentLoaded', function() {
     let scale = 1;
     modalImg.addEventListener('wheel', (e) => {
         e.preventDefault();
-        const delta = e.deltaY < 0 ? 0.1 : -0.1;
-        scale = Math.min(Math.max(scale + delta, 0.5), 3);  // 限制缩放比例
+        const delta = e.deltaY < 0 ? 0.07 : -0.07;
+        scale = Math.min(Math.max(scale + delta, 0.1), 10);  // 限制缩放比例
 
         modalImg.style.transform = `translate(${modalImg.getAttribute('data-x')}px, ${modalImg.getAttribute('data-y')}px) scale(${scale})`;
         modalImg.scale = scale;  // 存储当前缩放比例
