@@ -94,7 +94,7 @@ document.addEventListener('DOMContentLoaded', function() {
     modalImg.addEventListener('wheel', (e) => {
         e.preventDefault();
         const delta = e.deltaY < 0 ? 0.07 : -0.07;
-        scale = Math.min(Math.max(scale + delta, 0.1), 10);  // 限制缩放比例
+        scale = Math.min(Math.max(scale * (1 + delta), 0.1), 10);
 
         modalImg.style.transform = `translate(${modalImg.getAttribute('data-x')}px, ${modalImg.getAttribute('data-y')}px) scale(${scale})`;
         modalImg.scale = scale;  // 存储当前缩放比例
