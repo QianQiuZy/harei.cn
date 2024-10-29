@@ -9,6 +9,8 @@
 
 API引用（如有侵权请联系删除）：api.vtbs.moe（用于获取直播间开播状态）
 
+github：[https://github.com/dd-center/vtbs.moe](https://github.com/dd-center/vtbs.moe])
+
 PS：如果看到这里了请点个star吧谢谢了喵~
 
 PPS：本来想写网站里但是觉得无所谓（？）别乱搞，乱搞会被关小黑屋哦
