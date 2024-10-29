@@ -116,33 +116,31 @@ document.addEventListener("DOMContentLoaded", function() {
     document.getElementById('randomText').textContent = `"${randomText}"`;
 });
 
-/*此功能保留，请求头需要带上cookie才可获取，后续做到后端api.harei.cn中
 document.addEventListener("DOMContentLoaded", function() {
     const liveStatusText = document.getElementById("liveStatus");
 
-    // 定义检查直播状态的函数
     function checkLiveStatus() {
-        const roomId = 1820703922; // 替换为您的直播间ID
-        fetch(`https://api.live.bilibili.com/room/v1/Room/get_info?room_id=${roomId}`)
-            .then(response => response.json())
-            .then(data => {
-                // 根据data中的直播状态进行判断
-                if (data.data && data.data.live_status === 1) {
-                    liveStatusText.textContent = "直播中";
-                } else {
-                    liveStatusText.textContent = "未开播";
-                }
-            })
-            .catch(error => {
-                console.error("获取直播状态失败:", error);
-                liveStatusText.textContent = "直播状态未知"; // 错误时显示默认状态
-            });
+        fetch("https://api.vtbs.moe/v1/detail/1048135385", {
+            method: "GET",
+            headers: {
+                "Accept": "application/json"
+            }
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data && data.liveStatus !== undefined) { // 确保正确获取到数据
+                liveStatusText.textContent = data.liveStatus ? "直播中" : "未开播";
+            } else {
+                liveStatusText.textContent = "直播状态未知";
+            }
+        })
+        .catch(error => {
+            console.error("获取直播状态失败:", error);
+            liveStatusText.textContent = "请求失败";
+        });
     }
 
-    // 初次加载时检查直播状态
+    // 初次加载和定时刷新
     checkLiveStatus();
-
-    // 每隔1分钟更新一次直播状态
-    setInterval(checkLiveStatus, 1 * 60 * 1000);
+    setInterval(checkLiveStatus, 3 * 60 * 1000); // 每 5 分钟检查一次
 });
-*/
