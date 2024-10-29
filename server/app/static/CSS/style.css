@@ -54,7 +54,7 @@ h1 {
 }
 
 .banner-text {
-    font-size: 10px; /* 根据需要调整字号 */
+    font-size: 12px; /* 根据需要调整字号 */
     color: #333; /* 根据背景调整颜色 */
     margin-top: 5px; /* 控制与图片的间距 */
     font-family: 'Child Fun Sans Demo', cursive; /* 更文雅的字体 */
@@ -107,6 +107,18 @@ h1 {
     z-index: 1; /* 确保主内容在其他元素之上 */
     position: relative; /* 相对定位，确保内容可以正常显示 */
 }
+
+.status-box {
+    display: inline-block;
+    padding: 5px 10px;
+    border-radius: 8px;
+    background-color: white;
+    color: #333;
+    font-weight: bold;
+    margin-left: 8px;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+}
+
 /*下载按钮CSS保留不实装
 .download-button {
     position: fixed;
