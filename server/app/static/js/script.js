@@ -122,9 +122,9 @@ function fetchLiveStatus() {
         .then(data => {
             const liveStatusDiv = document.getElementById('liveStatus'); // 确保 ID 名称一致
             if (data.status === 1) {
-                liveStatusDiv.textContent = "当前状态：直播中";
+                liveStatusDiv.textContent = "直播中";
             } else {
-                liveStatusDiv.textContent = "当前状态：未开播";
+                liveStatusDiv.textContent = "未开播";
             }
         })
         .catch(error => {
