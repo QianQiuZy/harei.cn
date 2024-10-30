@@ -116,31 +116,25 @@ document.addEventListener("DOMContentLoaded", function() {
     document.getElementById('randomText').textContent = `"${randomText}"`;
 });
 
-document.addEventListener("DOMContentLoaded", function() {
-    const liveStatusText = document.getElementById("liveStatus");
-
-    function checkLiveStatus() {
-        fetch("https://api.vtbs.moe/v1/detail/1048135385", {
-            method: "GET",
-            headers: {
-                "Accept": "application/json"
-            }
-        })
+function fetchLiveStatus() {
+    fetch('/livestatus')
         .then(response => response.json())
         .then(data => {
-            if (data && data.liveStatus !== undefined) { // 确保正确获取到数据
-                liveStatusText.textContent = data.liveStatus ? "直播中" : "未开播";
+            const liveStatusDiv = document.getElementById('liveStatus'); // 确保 ID 名称一致
+            if (data.status === 1) {
+                liveStatusDiv.textContent = "当前状态：直播中";
             } else {
-                liveStatusText.textContent = "直播状态未知";
+                liveStatusDiv.textContent = "当前状态：未开播";
             }
         })
         .catch(error => {
             console.error("获取直播状态失败:", error);
-            liveStatusText.textContent = "请求失败";
+            document.getElementById('liveStatus').textContent = "状态获取失败";
         });
-    }
+}
 
-    // 初次加载和定时刷新
-    checkLiveStatus();
-    setInterval(checkLiveStatus, 3 * 60 * 1000); // 每 5 分钟检查一次
-});
+// 每 1 分钟获取一次状态
+setInterval(fetchLiveStatus, 60000);
+
+// 页面加载时立即获取状态
+fetchLiveStatus();
