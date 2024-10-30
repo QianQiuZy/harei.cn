@@ -14,7 +14,7 @@ from app import create_app
 from app.services.message_service import MessageService
 from app.services.images_service import ImageService
 from app.services.music_service import MusicService
-from app.api.livestatus import fetch_live_status
+from app.api.livestatus import live_status
 
 # app = Flask(__name__)  这里用工厂模式，所以在__init__.py中已经创建了app
 app = create_app()
@@ -293,13 +293,9 @@ def add_music():
 
     return ({'success': True, 'music_id': new_music.music_id}), 200
 
-@app.route("/livestatus", methods=["GET"])
-def live_status():
-    try:
-        status = fetch_live_status()
-        return jsonify({"live_status": "直播中" if status == 1 else "未直播"}), 200
-    except Exception as e:
-        return jsonify({"error": str(e)}), 500
+@app.route('/livestatus', methods=['GET'])
+def get_live_status():
+    return jsonify(live_status)
 
 if __name__ == "__main__":
     app.run(port=5000)

@@ -1,8 +1,11 @@
 import requests
 import threading
 
-# 用于存储直播状态
-live_status = {'status': 0}  # 默认值为未直播
+# 用于存储直播状态和开播时间
+live_status = {
+    'status': 0,       # 默认状态为未直播
+    'live_time': None  # 默认无开播时间
+}
 
 # 获取直播状态的函数
 def fetch_live_status():
@@ -12,13 +15,14 @@ def fetch_live_status():
         "Accept": "application/json",
         "Accept-Encoding": "gzip, deflate, br",
         "Accept-Language": "zh-CN,zh;q=0.9",
-        "Cookie": "*"  # 替换成您的Bilibili Cookie
+        "Cookie": "*"  # 替换成您的 Bilibili Cookie
     }
     response = requests.get(url, headers=headers)
     response.raise_for_status()
     
-    data = response.json()
-    return data.get("data", {}).get("live_status")
+    data = response.json().get("data", {})
+    live_status['status'] = data.get("live_status", 0)
+    live_status['live_time'] = data.get("live_time") if live_status['status'] == 1 else None
 
 # 定时器，每隔三分钟调用一次
 def schedule_fetch_live_status():
@@ -27,6 +31,3 @@ def schedule_fetch_live_status():
 
 # 启动定时器
 schedule_fetch_live_status()
-
-def get_live_status():
-    return live_status

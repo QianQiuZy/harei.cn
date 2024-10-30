@@ -116,25 +116,38 @@ document.addEventListener("DOMContentLoaded", function() {
     document.getElementById('randomText').textContent = `"${randomText}"`;
 });
 
+function updateLiveStatus(data) {
+    const liveStatusElement = document.getElementById("liveStatus");
+    
+    if (data.status === 1 && data.live_time) {
+        const liveStartTime = new Date(data.live_time);  // 将开播时间转换为 Date 对象
+        liveStatusElement.textContent = "已开播 00:00:00";
+
+        // 每秒更新已开播时长
+        setInterval(() => {
+            const now = new Date();
+            const diffInSeconds = Math.floor((now - liveStartTime) / 1000);
+
+            const hours = Math.floor(diffInSeconds / 3600);
+            const minutes = Math.floor((diffInSeconds % 3600) / 60);
+            const seconds = diffInSeconds % 60;
+
+            liveStatusElement.textContent = `已开播 ${hours}:${minutes}:${seconds}`;
+        }, 1000);
+
+    } else {
+        liveStatusElement.textContent = "未开播";
+    }
+}
+
+// 从后端获取直播状态
 function fetchLiveStatus() {
     fetch('/livestatus')
         .then(response => response.json())
-        .then(data => {
-            const liveStatusDiv = document.getElementById('liveStatus'); // 确保 ID 名称一致
-            if (data.status === 1) {
-                liveStatusDiv.textContent = "直播中";
-            } else {
-                liveStatusDiv.textContent = "未开播";
-            }
-        })
-        .catch(error => {
-            console.error("获取直播状态失败:", error);
-            document.getElementById('liveStatus').textContent = "状态获取失败";
-        });
+        .then(data => updateLiveStatus(data))
+        .catch(error => console.error('获取直播状态失败:', error));
 }
 
-// 每 1 分钟获取一次状态
-setInterval(fetchLiveStatus, 60000);
-
-// 页面加载时立即获取状态
+// 初始加载和定时更新
 fetchLiveStatus();
+setInterval(fetchLiveStatus, 60000); // 每3分钟更新一次状态
