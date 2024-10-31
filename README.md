@@ -7,7 +7,7 @@
 
 如果发现错误或有改进建议，欢迎提Issue，或者直接在[B站](https://space.bilibili.com/351708822)私信我。
 
-第三方API引用：https://api.live.bilibili.com/room/v1/Room/get_info（用于获取直播间开播状态）
+第三方API引用：api.live.bilibili.com/room/v1/Room/get_info （用于获取直播间开播状态）
 
 PS：如果看到这里了请点个star吧谢谢了喵~
 
