@@ -15,7 +15,7 @@ def fetch_live_status():
         "Accept": "application/json",
         "Accept-Encoding": "gzip, deflate, br",
         "Accept-Language": "zh-CN,zh;q=0.9",
-        "Cookie": "*"  # 替换成您的 Bilibili Cookie
+        "Cookie": "*"  # 只需要cookie内的SESSDATA项发请求即可，不需要其他项
     }
     response = requests.get(url, headers=headers)
     response.raise_for_status()
