@@ -79,38 +79,6 @@ function filterSongs() {
     });
 }
 
-// document.getElementById('submit').addEventListener('click', submitMessage);
-
-function submitMessage() {
-    const message = document.getElementById('message').value;
-
-    if (message.trim() === '') {
-        alert('请输入您的秘密！'); // 如果输入为空，提示用户
-        return;
-    }
-
-    // 假设你的服务器端有一个处理 POST 请求的 API
-    fetch('/upload', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({ message: message })
-    })
-        .then(response => {
-            if (response.ok) {
-                alert('提交成功！');
-                document.getElementById('message').value = ''; // 清空输入框
-            } else {
-                alert('提交失败，请重试。');
-            }
-        })
-        .catch(error => {
-            console.error('错误:', error);
-            alert('发生错误，请重试。');
-        });
-}
-
 document.addEventListener("DOMContentLoaded", function() {
     fetch('/static/components/sidebar.html')
         .then(response => response.text())
@@ -142,39 +110,3 @@ document.addEventListener("DOMContentLoaded", function() {
     const randomText = texts[Math.floor(Math.random() * texts.length)];
     document.getElementById('randomText').textContent = `"${randomText}"`;
 });
-
-function updateLiveStatus(data) {
-    const liveStatusElement = document.getElementById("liveStatus");
-    
-    if (data.status === 1 && data.live_time) {
-        const liveStartTime = new Date(data.live_time);  // 将开播时间转换为 Date 对象
-        liveStatusElement.textContent = "已开播 00:00:00";
-
-        // 每秒更新已开播时长
-        setInterval(() => {
-            const now = new Date();
-            const diffInSeconds = Math.floor((now - liveStartTime) / 1000);
-
-            const hours = Math.floor(diffInSeconds / 3600).toString().padStart(2, '0');
-            const minutes = Math.floor((diffInSeconds % 3600) / 60).toString().padStart(2, '0');
-            const seconds = (diffInSeconds % 60).toString().padStart(2, '0');
-
-            liveStatusElement.textContent = `已开播 ${hours}:${minutes}:${seconds}`;
-        }, 1000);
-
-    } else {
-        liveStatusElement.textContent = "未开播";
-    }
-}
-
-// 从后端获取直播状态
-function fetchLiveStatus() {
-    fetch('/livestatus')
-        .then(response => response.json())
-        .then(data => updateLiveStatus(data))
-        .catch(error => console.error('获取直播状态失败:', error));
-}
-
-// 初始加载和定时更新
-fetchLiveStatus();
-setInterval(fetchLiveStatus, 60000); // 每3分钟更新一次状态
