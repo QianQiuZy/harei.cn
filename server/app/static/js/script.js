@@ -45,7 +45,7 @@ function closeSidebar() {
 // 点击非边栏区域时关闭边栏
 function closeSidebarOnOutsideClick(event) {
     const sidebar = document.getElementById('sidebar');
-    const menuButton = document.getElementById('menu-button'); // 假设打开边栏的按钮有这个ID
+    const menuButton = document.getElementById('menu-icon'); // 假设打开边栏的按钮有这个ID
 
     // 检查点击是否发生在 sidebar、overlay 或菜单按钮上
     if (!sidebar.contains(event.target) && event.target !== menuButton) {
