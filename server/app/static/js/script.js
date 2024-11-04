@@ -8,23 +8,50 @@ function toggleMenu() {
     if (sidebar.classList.contains('open')) {
         overlay.style.display = 'block';
 
+        // 为每个文本项设置延迟
         iconItems.forEach((item, index) => {
-            item.style.animationDelay = `${index * 0.1}s`; // 为每个文本项设置延迟
+            item.style.animationDelay = `${index * 0.1}s`;
         });
+
+        // 添加点击事件监听器，点击非边栏区域时收起边栏
+        setTimeout(() => {
+            document.addEventListener('click', closeSidebarOnOutsideClick);
+        }, 0); // 延迟添加事件监听器，避免立即触发关闭
     } else {
-        overlay.style.display = 'none';
-        iconItems.forEach(item => {
-            item.style.animationDelay = '0s'; // 关闭时重置延迟
-            item.style.opacity = '0'; // 立即隐藏文本
-            item.style.transform = 'translateX(-20px)'; // 立即移回
-        });
+        closeSidebar();
     }
 }
 
-// document.getElementById('search').addEventListener('input', filterSongs);
-// document.getElementById('artist-select').addEventListener('change', filterSongs);
-// document.getElementById('genre-select').addEventListener('change', filterSongs);
-// document.getElementById('language-select').addEventListener('change', filterSongs);
+// 定义关闭边栏的函数
+function closeSidebar() {
+    const sidebar = document.getElementById('sidebar');
+    const overlay = document.getElementById('overlay');
+    const iconItems = sidebar.querySelectorAll('.icon-item');
+
+    overlay.style.display = 'none';
+    sidebar.classList.remove('open');
+
+    // 重置延迟并隐藏文本项
+    iconItems.forEach(item => {
+        item.style.animationDelay = '0s';
+        item.style.opacity = '0';
+        item.style.transform = 'translateX(-20px)';
+    });
+
+    // 移除全局点击事件监听器
+    document.removeEventListener('click', closeSidebarOnOutsideClick);
+}
+
+// 点击非边栏区域时关闭边栏
+function closeSidebarOnOutsideClick(event) {
+    const sidebar = document.getElementById('sidebar');
+    const menuButton = document.getElementById('menu-button'); // 假设打开边栏的按钮有这个ID
+
+    // 检查点击是否发生在 sidebar、overlay 或菜单按钮上
+    if (!sidebar.contains(event.target) && event.target !== menuButton) {
+        closeSidebar();
+    }
+}
 
 function filterSongs() {
     const searchValue = document.getElementById('search').value.toLowerCase();
