@@ -25,3 +25,9 @@ CREATE TABLE music (
     language VARCHAR(50),                     -- 语言（可选）
     note TEXT                                -- 备注（可选）
 );
+
+CREATE TABLE gift_ranking (
+    ADD COLUMN username VARCHAR(255) DEFAULT NULL;
+    user_uid VARCHAR(255) PRIMARY KEY,       -- 用户唯一UID
+    gift_count INT DEFAULT 0                 -- 口水黄豆礼物的数量
+);

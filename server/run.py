@@ -15,6 +15,8 @@ from app.services.message_service import MessageService
 from app.services.images_service import ImageService
 from app.services.music_service import MusicService
 from app.api.livestatus import live_status
+from app.services.gift_service import GiftService
+from xml.etree import ElementTree as ET
 
 # app = Flask(__name__)  这里用工厂模式，所以在__init__.py中已经创建了app
 app = create_app()
@@ -296,6 +298,76 @@ def add_music():
 @app.route('/livestatus', methods=['GET'])
 def get_live_status():
     return jsonify(live_status)
+
+@app.route('/upload-gift-xml', methods=['POST'])
+def upload_gift_xml():
+    xml_file = request.files.get('xml_file')
+    if not xml_file:
+        return jsonify({"success": False, "error": "XML file is required."}), 400
+
+    try:
+        tree = ET.parse(xml_file)
+        root = tree.getroot()
+        gift_data = {}
+
+        # 遍历礼物节点
+        for gift in root.findall('.//gift[@giftname="口水黄豆"]'):
+            user_uid = gift.get('uid')
+            username = gift.get('user')
+            gift_count = int(gift.get('giftcount', 0))
+
+            if user_uid and username:
+                if user_uid in gift_data:
+                    gift_data[user_uid]["gift_count"] += gift_count
+                else:
+                    gift_data[user_uid] = {"username": username, "gift_count": gift_count}
+
+        # 更新数据库中的礼物记录和用户名
+        for user_uid, data in gift_data.items():
+            GiftService.update_or_create(user_uid, data["username"], data["gift_count"])
+
+        return jsonify({"success": True, "message": "Gift data uploaded successfully"}), 200
+
+    except ET.ParseError:
+        return jsonify({"success": False, "error": "Invalid XML format"}), 400
+    
+@app.route('/gift-ranking', methods=['GET'])
+def get_gift_ranking():
+    limit = request.args.get('limit', default=10, type=int)
+    ranking = GiftService.get_gift_ranking(limit=limit)
+    ranking_data = [{"user_uid": record.user_uid, "username": record.username, "gift_count": record.gift_count} for record in ranking]
+    return jsonify(ranking_data), 200
+
+@app.route('/gift-count/<user_uid>', methods=['GET'])
+def get_gift_count(user_uid):
+    # 获取用户的礼物数量和用户名
+    gift_record = GiftService.get_gift_record(user_uid)
+    
+    # 如果找到记录，则返回用户名和礼物数量，否则返回默认值
+    if gift_record:
+        response_data = {
+            "user_uid": user_uid,
+            "username": gift_record.username,
+            "gift_count": gift_record.gift_count
+        }
+    else:
+        response_data = {
+            "user_uid": user_uid,
+            "username": None,
+            "gift_count": 0
+        }
+        
+    return jsonify(response_data), 200
+
+@app.route('/giftrank')
+def giftrank():
+    if not session.get("logged_in"):
+        return redirect(url_for("login"))
+    return render_template("giftrank.html")
+
+@app.route('/gift')
+def gift():
+    return render_template("gift.html")
 
 if __name__ == "__main__":
     app.run(port=5000)
