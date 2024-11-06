@@ -1,0 +1,244 @@
+import { Meta, Story, Canvas, ArgsTable } from '@storybook/addon-docs';
+import { PhotoProvider, PhotoConsumer, PhotoSlider } from 'vue3-photo-preview';
+import { ViewBox, imgList } from '../main.ts';
+import originPhotoProvider from 'vue3-photo-preview/src/PhotoProvider/index.vue';
+import originPhotoConsumer from 'vue3-photo-preview/src/PhotoConsumer/index.vue'
+import originPhotoSlider from 'vue3-photo-preview/src/PhotoSlider/index.vue';
+import 'vue3-photo-preview/dist/index.css';
+
+<Meta title="vue3-photo-preview" />
+
+## 默认展示
+<Canvas>
+  <Story name="默认展示">
+    {
+      () => ({
+        data() {
+          return {
+            imgList
+          }
+        },
+        components: { PhotoProvider, PhotoConsumer, ViewBox },
+        template: `
+          <photo-provider>
+            <photo-consumer v-for="src in imgList" :intro="src" :key="src" :src="src">
+              <view-box :src="src" />
+            </photo-consumer>
+          </photo-provider>
+        `
+      })
+    }
+  </Story>
+</Canvas>
+
+## 自定义下载方法
+<Canvas>
+  <Story name="自定义下载方法">
+    {
+      () => ({
+        data() {
+          return {
+            imgList
+          }
+        },
+        methods: {
+          downloadMethod(item) {
+            console.log(item);
+          }
+        },
+        components: { PhotoProvider, PhotoConsumer, ViewBox },
+        template: `
+          <photo-provider :downloadMethod="downloadMethod">
+            <photo-consumer v-for="src in imgList" :intro="src" :key="src" :src="src">
+              <view-box :src="src" />
+            </photo-consumer>
+          </photo-provider>
+        `
+      })
+    }
+  </Story>
+</Canvas>
+
+## 循环预览
+<Canvas>
+  <Story name="循环预览">
+    {
+      () => ({
+        data() {
+          return {
+            imgList
+          }
+        },
+        components: { PhotoProvider, PhotoConsumer, ViewBox },
+        template: `
+          <photo-provider :loop="true">
+            <photo-consumer v-for="src in imgList" :intro="src" :key="src" :src="src">
+              <view-box :src="src" />
+            </photo-consumer>
+          </photo-provider>
+        `
+      })
+    }
+  </Story>
+</Canvas>
+
+## 通过按钮触发
+<Canvas>
+  <Story name="通过按钮触发">
+    {
+      () => ({
+        data() {
+          return {
+            imgList
+          }
+        },
+        components: { PhotoProvider, PhotoConsumer },
+        template: `
+          <photo-provider>
+            <photo-consumer v-for="(src, index) in imgList" :intro="src" :key="src" :src="src">
+              <button v-if="index === 0">打开预览</button>
+            </photo-consumer>
+          </photo-provider>
+        `
+      })
+    }
+  </Story>
+</Canvas>
+
+## 异步更新图片地址
+<Canvas>
+  <Story name="异步更新图片地址">
+    {
+      () => ({
+        data() {
+          return {
+            index: 0,
+          }
+        },
+        computed: {
+          imageSrc() {
+            return imgList[this.index];
+          }
+        },
+        methods: {
+          asyncChangeSrc() {
+            setTimeout(() => {
+              const index = this.index + 1;
+              this.index = index % imgList.length;
+            }, 3000)
+          }
+        },
+        components: { PhotoProvider, PhotoConsumer },
+        template: `
+          <photo-provider>
+            <photo-consumer :intro="imageSrc" :src="imageSrc">
+              <button @click="asyncChangeSrc">打开预览</button>
+            </photo-consumer>
+          </photo-provider>
+        `
+      })
+    }
+  </Story>
+</Canvas>
+
+## 异步更新图片列表
+<Canvas>
+  <Story name="异步更新图片列表">
+    {
+      () => ({
+        data() {
+          return {
+            list1: imgList.slice(0, 2),
+            list2: imgList.slice(2, imgList.length),
+            list: imgList.slice(0, 2),
+          }
+        },
+        methods: {
+          changeImgList() {
+            this.list = this.list2;
+          }
+        },
+        components: { PhotoProvider, PhotoConsumer, ViewBox },
+        template: `
+          <photo-provider>
+            <photo-consumer v-for="src in list" :intro="src" :key="src" :src="src">
+              <view-box :src="src" />
+            </photo-consumer>
+            <button @click="changeImgList" style="vertical-align:top;">改变图片列表</button>
+          </photo-provider>
+        `
+      })
+    }
+  </Story>
+</Canvas>
+
+## 受控延迟预览
+<Canvas>
+  <Story name="受控延迟预览">
+    {
+      () => ({
+        data() {
+          return {
+            imgList,
+            index: 0,
+            visible: false,
+            items: imgList.map(src => ({ src, key: src, intro: src })),
+          }
+        },
+        methods: {
+          changeIndex(index) {
+            this.index = index;
+          },
+          delay(time) {
+            return new Promise((resolve, reject) => {
+              setTimeout(() => {
+                resolve();
+              }, time * 1000)
+            })
+          },
+          async handleShow(key) {
+            await this.delay(3);
+            const itemIndex = this.items.findIndex(item => item.key === key);
+            if (itemIndex > -1) {
+              this.index = itemIndex;
+              this.visible = true;
+            }
+          },
+          handleHide() {
+            this.visible = false;
+          }
+        },
+        components: { PhotoSlider, ViewBox },
+        template: `
+          <view-box
+            v-for="src in imgList"
+            :key="src"
+            :src="src"
+            @click="handleShow(src)"
+          />
+          <photo-slider
+            :items="items"
+            :visible="visible"
+            :index="index"
+            @changeIndex="changeIndex"
+            @clickMask="handleHide"
+            @closeModal="handleHide"
+          />
+        `
+      })
+    }
+  </Story>
+</Canvas>
+
+## Props
+
+### PhotoProvider
+
+<ArgsTable of={originPhotoProvider} />
+
+### PhotoConsumer
+
+<ArgsTable of={originPhotoConsumer} />
+
+### PhotoSlider
+<ArgsTable of={originPhotoSlider} />
