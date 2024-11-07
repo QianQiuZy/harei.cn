@@ -44,12 +44,20 @@ function calculateRankTitle(giftCount) {
         return `大豆师${Math.floor(giftCount / 1000)}星`;
     } else if (giftCount >= 10000 && giftCount <= 99999) {
         return `豆灵${Math.floor(giftCount / 10000)}星`;
-    } else if (giftCount >= 100000 && giftCount <= 999999) {
+    } else if (giftCount >= 100000 && giftCount <= 199999) {
         return `豆王${Math.floor(giftCount / 100000)}星`;
-    } else if (giftCount >= 1000000 && giftCount <= 9999999) {
-        return `豆皇${Math.floor(giftCount / 1000000)}星`;
-    } else if (giftCount >= 10000000 && giftCount <= 99999999) {
-        return `豆宗${Math.floor(giftCount / 10000000)}星`;
+    } else if (giftCount >= 200000 && giftCount <= 299999) {
+        return `豆皇${Math.floor((giftCount-200000) / 10000)}星`;
+    } else if (giftCount >= 300000 && giftCount <= 399999) {
+        return `豆宗${Math.floor((giftCount-300000) / 10000)}星`;
+    } else if (giftCount >= 400000 && giftCount <= 499999) {
+        return `豆尊${Math.floor((giftCount-400000) / 10000)}星`;
+    } else if (giftCount >= 500000 && giftCount <= 599999) {
+        return `豆圣${Math.floor((giftCount-500000) / 10000)}星`;
+    } else if (giftCount >= 600000 && giftCount <= 999999) {
+        return `豆帝`;
+    } else if (giftCount >= 1000000) {
+        return `豆神`;
     } else {
         return "无称号";
     }
