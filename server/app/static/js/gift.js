@@ -18,7 +18,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
                 // 显示用户礼物数量和称号
                 const resultText = data.gift_count !== undefined
-                    ? `用户名: ${data.username} (UID: ${userUID}), 礼物数量: ${data.gift_count}, 称号: ${rankTitle}`
+                    ? `用户名: ${data.username} ,UID: ${userUID}, 豆力修炼值: ${data.gift_count}, 豆力等级: ${rankTitle}`
                     : `未找到该用户的礼物记录`;
                 document.getElementById("user-gift-count").textContent = resultText;
 
