@@ -35,7 +35,7 @@
         <v-app-bar-nav-icon variant="text" @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
       </template>
     </v-app-bar>
-    <v-main style="margin: 20px">
+    <v-main style="margin: 0 30px 30px 30px">
       <router-view />
     </v-main>
   </v-app>
@@ -69,6 +69,12 @@ const items = ref([
     title: '提问箱',
     documentTitle: '花礼的提问箱',
     href: '/box',
+    target: '_self',
+  },{
+    prependAvatar: 'https://s1.hdslb.com/bfs/live/1e70a12a59c48fd29febe9db3ec9a930c39ffa07.png',
+    title: '豆力巅峰榜',
+    documentTitle: '豆力巅峰榜',
+    href: '/gift',
     target: '_self',
   },
   {

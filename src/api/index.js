@@ -31,3 +31,11 @@ export const approveApi = (id) => { // 发送POST请求进行审批
 export const rejectApi = (id) => { // 发送POST请求进行审批
   return commonRequest('/api/reject/' + id, 'POST')
 };
+
+
+export const getGiftCountApi = (id) => {
+  return commonRequest('/api/gift-count/' + id, 'GET')
+};
+export const getGiftRankingApi = () => {
+  return commonRequest('/api/gift-ranking', 'GET')
+};

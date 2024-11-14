@@ -8,7 +8,7 @@
       :headers="headers"
       :items="songsData"
       style="padding: 16px"
-      height="68vh"
+      height="75vh"
       item-value="title"
       :loading="loading"
       no-data-text="暂无数据"

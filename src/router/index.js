@@ -16,6 +16,8 @@ const routerMap = [{
 }, {
   name: '/box', title: '花礼的提问箱',
 }, {
+  name: '/gift', title: '豆力巅峰榜',
+}, {
   name: "/admin/", title: '花礼harei的小空间',
 }, {
   name: '/admin/audit', title: '花礼的歌单',
