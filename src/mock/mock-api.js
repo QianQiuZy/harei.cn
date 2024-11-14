@@ -453,3 +453,10 @@ Mock.mock('/api/gift-ranking', 'get', (req) => {
     "gift_count": 2383, "user_uid": "171919", "username": "珈蓝梦华"
   }]
 })
+
+Mock.mock('/api/add-music', 'post', (req) => {
+  return {
+    "message": "歌曲已添加至歌单",
+    "success": true
+  }
+})

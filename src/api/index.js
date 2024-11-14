@@ -1,41 +1,44 @@
-import commonRequest from "@/composable/useCommonRequest";
+import {Get, Post} from "./server";
+
 
 // 用户登录
 export const login = async (userData) => {
-  return commonRequest('/api/login', 'POST', userData);
+  return Post('/api/login', userData);
 };
 
 export const music = () => {
-  return commonRequest('/api/music', 'GET');
+  return Get('/api/music');
 };
-
+export const addMusic = (music) => {
+  return Post('/api/add-music', music);
+};
 export const archiveAllMessagesApi = () => { // 发送POST请求进行归档所有消息
-  return commonRequest('/api/archive', 'POST')
+  return Post('/api/archive')
 };
 export const fetchMessagesApi = () => { // 发送GET请求获取所有消息
-  return commonRequest('/api/messages', 'GET')
+  return Get('/api/messages')
 };
-export const uploadApi = (formData) => { // 发送POST请求进行归档所有消息
-  return commonRequest('/api/upload', 'POST', formData, null, {
+export const uploadApi = (formData) => { // 发送POST请求进行上传消息
+  return Post('/api/upload', formData, {}, {
     'Content-Type': 'multipart/form-data'
   })
 };
 export const fetchLiveStatusApi = () => { // 发送GET请求获取所有消息
-  return commonRequest('/api/livestatus', 'GET')
+  return Get('/api/livestatus')
 };
 
 export const approveApi = (id) => { // 发送POST请求进行审批
-  return commonRequest('/api/approve/' + id, 'POST')
+  return Post('/api/approve/' + id)
 };
 
 export const rejectApi = (id) => { // 发送POST请求进行审批
-  return commonRequest('/api/reject/' + id, 'POST')
+  return Post('/api/reject/' + id)
 };
 
 
 export const getGiftCountApi = (id) => {
-  return commonRequest('/api/gift-count/' + id, 'GET')
+  return Get('/api/gift-count/' + id)
 };
 export const getGiftRankingApi = () => {
-  return commonRequest('/api/gift-ranking', 'GET')
+  return Get('/api/gift-ranking')
 };

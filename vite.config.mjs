@@ -11,6 +11,7 @@ import { VueHooksPlusResolver } from "@vue-hooks-plus/resolvers";
 // Utilities
 import { defineConfig } from "vite";
 import { fileURLToPath, URL } from "node:url";
+import * as https from "https";
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -48,5 +49,14 @@ export default defineConfig({
   },
   server: {
     port: 3000,
+    proxy: {
+      '/api': {
+        target: 'https://43.154.146.167', // 目标服务器地址
+        changeOrigin: true, // 是否允许跨域
+        rewrite: (path) => path.replace(/^\/api/, ''),
+        // 不验证SSL证书
+        secure: false,
+      },
+    },
   },
 });
