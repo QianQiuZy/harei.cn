@@ -14,7 +14,7 @@
     "vue": "^3.4.31",
     "vue-hooks-plus": "^2.2.1",
     "vue-toast-notification": "^3.1.3",
-    "vue3-photo-preview": "file:../web-design/vue3-photo-preview",
+    "vue3-photo-preview": "file:./libs/vue3-photo-preview",
     "vuetify": "^3.6.11"
   },
   "devDependencies": {

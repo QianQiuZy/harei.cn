@@ -8,7 +8,6 @@
 import {createRouter, createWebHistory} from 'vue-router/auto'
 import {setupLayouts} from 'virtual:generated-layouts'
 import {routes} from 'vue-router/auto-routes'
-import {createWebHashHistory} from "vue-router/dist/vue-router";
 
 const routerMap = [{
   name: '/', title: '花礼harei的小空间',
@@ -28,7 +27,7 @@ const routerMap = [{
   name: '/login', title: '登录',
 },]
 const router = createRouter({
-  history: createWebHashHistory(import.meta.env.BASE_URL), routes: setupLayouts(routes).map(route => {
+  history: createWebHistory(import.meta.env.BASE_URL), routes: setupLayouts(routes).map(route => {
     if (route.path === "/admin") {
       route.component = () => import("/src/layouts/admin.vue");
     } else if (route.path === "/login") {
@@ -55,7 +54,6 @@ const router = createRouter({
     }
 
     setChildrenTitle(route)
-    // route.meta.title = '11'
     return route;
   }),
 })
