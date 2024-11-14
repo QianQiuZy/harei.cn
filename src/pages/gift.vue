@@ -8,6 +8,7 @@
     <v-card-text>
       <v-data-table-virtual
         :loading="loadingGifts"
+        no-data-text="暂无数据"
         loading-text="加载中..."
         style="background-color: rgba(255, 255, 255, 0.6)"
         density="comfortable"

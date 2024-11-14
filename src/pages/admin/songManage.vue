@@ -8,7 +8,7 @@
       :headers="headers"
       :items="songsData"
       style="padding: 16px"
-      height="65vh"
+      height="70vh"
       item-value="title"
       :loading="loading"
       no-data-text="暂无数据"
@@ -111,7 +111,7 @@
 
                 <div class="text-subtitle-1 text-medium-emphasis">歌手</div>
                 <v-text-field
-                  v-model:value="editedItem.artist"
+                  v-model="editedItem.artist"
                   density="compact"
                   placeholder="歌手"
                   prepend-inner-icon="mdi-account"
@@ -119,7 +119,7 @@
                 ></v-text-field>
                 <div class="text-subtitle-1 text-medium-emphasis">类型</div>
                 <v-text-field
-                  v-model:value="editedItem.type"
+                  v-model="editedItem.type"
                   density="compact"
                   placeholder="类型"
                   prepend-inner-icon="mdi-tag"
@@ -127,20 +127,22 @@
                 ></v-text-field>
                 <div class="text-subtitle-1 text-medium-emphasis">语言</div>
                 <v-text-field
-                  v-model:value="editedItem.language"
+                  v-model="editedItem.language"
                   density="compact"
                   placeholder="语言"
                   prepend-inner-icon="mdi-book-open"
                   variant="outlined"
                 ></v-text-field>
                 <div class="text-subtitle-1 text-medium-emphasis">备注</div>
-                <v-text-field
-                  v-model:value="editedItem.note"
+                <v-textarea
+                  clearable
+                  auto-grow
+                  v-model="editedItem.note"
                   density="compact"
                   placeholder="备注"
                   prepend-inner-icon="mdi-comment"
                   variant="outlined"
-                ></v-text-field>
+                ></v-textarea>
 
               </v-card-text>
               <v-divider class="mt-2"></v-divider>
@@ -158,6 +160,7 @@
                   color="blue-darken-1"
                   variant="text"
                   @click="save"
+                  :loading="loadingAdd"
                 >
                   保存
                 </v-btn>
@@ -202,10 +205,12 @@
 
 <script setup>
 import {useDisplay} from 'vuetify'
-import {music} from "@/api";
+import {addMusic, music} from "@/api";
 import {useRequest} from "vue-hooks-plus";
+import {useToast} from "vue-toast-notification";
 
 const {xs} = useDisplay()
+const $toast = useToast()
 
 const dialog = ref(false);
 const dialogDelete = ref(false);
@@ -236,7 +241,7 @@ const defaultItem = {
   language: '',
   note: '',
 };
-const {data: songsData, loading} = useRequest(music, {
+const {data: songsData, loading,refresh } = useRequest(music, {
   onError: error => {
     console.error('获取歌曲数据出错:', error)
   }
@@ -301,9 +306,33 @@ const editItem = (item) => {
 const reset = () => {
 
 }
+const { loading : loadingAdd, run } = useRequest(addMusic, {
+  manual: true,
+  onSuccess: (data) => {
+    if (data.success){
+      refresh();
+      dialog.value = false
+      nextTick(() => {
+        editedItem.value = {...defaultItem}
+        editedIndex.value = -1
+      })
+      console.log('添加歌曲成功')
+    } else {
+      $toast.error('添加歌曲失败，请重试')
+    }
 
+  },
+  onError: error => {
+    $toast.error('添加歌曲失败，请重试')
+    console.error('添加歌曲出错:', error)
+  }
+})
 const save = () => {
-  console.log(editedItem.value);
+  if (editedIndex.value === -1) {
+    run(editedItem.value)
+  } else {
+    songsData.value[editedIndex.value] = editedItem.value;
+  }
 }
 
 const close = () => {

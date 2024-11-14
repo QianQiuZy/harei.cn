@@ -52,7 +52,7 @@
       </v-col>
       <v-col>
         <div class="chat-container position-relative pa-6">
-          <v-card variant="text" class="chat-box">
+          <v-card v-if="currentMessage.content" variant="text" class="chat-box">
             <v-card-text>
               {{ currentMessage.content }}
               <v-row
