@@ -189,3 +189,20 @@ body {
   word-wrap: break-word; 
   overflow-wrap: break-word;
 }
+
+/* 隐藏文本样式 */
+.hidden-text {
+  display: inline-block;
+  background-color: black;
+  color: black;
+  cursor: pointer;
+  padding: 0 4px;
+  margin: 0; /* 防止出现意外的间距 */
+  white-space: nowrap; /* 禁止换行 */
+}
+
+/* 当鼠标悬停时，显示文本 */
+.hidden-text:hover {
+  background-color: black;
+  color: white;
+}

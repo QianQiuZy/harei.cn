@@ -4,7 +4,15 @@ document.addEventListener('DOMContentLoaded', function() {
     const thumbnails = document.querySelectorAll('.thumbnail');
     const modal = document.querySelector('.image-modal');
     const modalImg = document.getElementById('modal-img');
+    const chatmsgElements = document.querySelectorAll('.chatmsg');
 
+    chatmsgElements.forEach(chatmsg => {
+        // 替换多个空格为一个空格，同时保留换行符
+        chatmsg.innerHTML = chatmsg.innerHTML
+            .replace(/^\s+/g, '', ' ') 
+            .replace(/\s+$/g, '', ' ')
+    });
+    
     // 显示聊天框
     chatBoxes[0].style.display = 'block';
 
@@ -98,6 +106,24 @@ document.addEventListener('DOMContentLoaded', function() {
         modalImg.style.transform = `translate(${modalImg.getAttribute('data-x')}px, ${modalImg.getAttribute('data-y')}px) scale(${scale})`;
         modalImg.scale = scale;  // 存储当前缩放比例
     });
+
+    // 显示隐藏文本功能
+    const hiddenTextElements = document.querySelectorAll('.hidden-text');
+    hiddenTextElements.forEach(hiddenText => {
+        hiddenText.style.backgroundColor = 'black';
+        hiddenText.style.color = 'black';
+        hiddenText.style.cursor = 'pointer';
+        
+        hiddenText.addEventListener('mouseenter', () => {
+            hiddenText.style.backgroundColor = 'black';
+            hiddenText.style.color = 'white';
+        });
+        hiddenText.addEventListener('mouseleave', () => {
+            hiddenText.style.backgroundColor = 'black';
+            hiddenText.style.color = 'black';
+        });
+    });
+
     // 处理过审请求
     const approveButtons = document.querySelectorAll('.approve-button');
     approveButtons.forEach(approveButton => {
