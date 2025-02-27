@@ -44,3 +44,48 @@ function fetchLiveStatus() {
 // 初始加载和定时更新
 fetchLiveStatus();
 setInterval(fetchLiveStatus, 60000); // 每1分钟更新一次状态
+
+function calculateDays(targetMonth, targetDay) {
+    const today = new Date();
+    let year = today.getFullYear();
+    
+    let targetDate = new Date(year, targetMonth - 1, targetDay);
+    
+    // 如果目标日期已经过去，设置为下一年的同一天
+    if (today > targetDate) {
+        targetDate.setFullYear(year + 1);
+    }
+    
+    // 计算两个日期之间的毫秒数
+    const diffTime = targetDate - today;
+    
+    // 将毫秒数转换为天数，并取整
+    const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+    
+    return diffDays;
+}
+
+function updateCountdown() {
+    const birthdayDays = calculateDays(3, 1); // 3月1日
+    const anniversaryDays = calculateDays(7, 16); // 7月16日
+    
+    const birthdayElement = document.getElementById('birthdayCountdown');
+    const anniversaryElement = document.getElementById('anniversaryCountdown');
+    
+    if (birthdayElement) {
+        birthdayElement.textContent = `距离花礼harei生日还剩${birthdayDays}天`;
+    }
+    
+    if (anniversaryElement) {
+        anniversaryElement.textContent = `距离花礼harei出道纪念日还剩${anniversaryDays}天`;
+    }
+}
+
+// 在页面加载完成后更新倒计时
+document.addEventListener("DOMContentLoaded", function() {
+    updateCountdown();
+    
+    // 如果需要每天自动更新，可以设置定时器
+    // 这里设置每小时更新一次
+    setInterval(updateCountdown, 1000 * 60 * 60);
+});

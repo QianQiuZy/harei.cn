@@ -30,26 +30,43 @@
             </a>
             <p class="banner-text"><span id="liveStatus" class="status-box"></span></p>
         </div>
+        <div class="countdowndate">
+            纪念日倒计时
+            <div class="countdowndate-content">
+                <p id="birthdayCountdown" class="countdown-text"></p>
+                <p id="anniversaryCountdown" class="countdown-text"></p>
+            </div>
+        </div>
         <div class="url-grid">
             <div class="grid-item">
                 <a href="/songs">
-                    <img src="https://qianqiuzy-1313476938.cos.ap-shanghai.myqcloud.com/music.png" alt="方块图片1" class="grid-img">
+                    <img src="https://qianqiuzy-1313476938.cos.ap-shanghai.myqcloud.com/music-l.png" alt="方块图片1" class="grid-img">
                 </a>
                 <p class="grid-text">歌单</p>
             </div>
             <div class="grid-item">
                 <a href="/box">
-                    <img src="https://qianqiuzy-1313476938.cos.ap-shanghai.myqcloud.com/box.png" alt="方块图片2" class="grid-img">
+                    <img src="https://qianqiuzy-1313476938.cos.ap-shanghai.myqcloud.com/box-l.png" alt="方块图片2" class="grid-img">
                 </a>
                 <p class="grid-text">提问箱</p>
+            </div>
+            <div class="grid-item">
+                <a href="/gift">
+                    <img src="https://s1.hdslb.com/bfs/live/1e70a12a59c48fd29febe9db3ec9a930c39ffa07.png" alt="方块图片3" class="grid-img">
+                </a>
+                <p class="grid-text">豆力榜</p>
             </div>
         </div>
         <div class="random-text">
             <p id="randomText"></p>
         </div>
+        <a class="beian" href="https://beian.miit.gov.cn" target="_blank">
+            <p class="beiantext">陕ICP备2024053986号-1</p>
+        </a>
     </div>
-
+    
     <script src="static/js/script.js"></script>
-    <script src="static/js/liveStatus.js"></script>
+    <script src="static/js/livestatus.js"></script>
+    <script src="static/js/birthday.js"></script>
 </body>
 </html>
