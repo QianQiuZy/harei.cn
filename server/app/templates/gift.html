@@ -7,7 +7,7 @@
     <link rel="icon" href="https://qianqiuzy-1313476938.cos.ap-shanghai.myqcloud.com/16x16.png" sizes="16x16" type="image/png">
     <link rel="stylesheet" href="{{ url_for('static', filename='CSS/sidebar.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='CSS/gift.css') }}">
-    <title>口水黄豆排行榜</title>
+    <title>豆力巅峰榜</title>
 </head>
 <body>
     <!-- 叠加图层 -->
@@ -25,14 +25,14 @@
             <div class="container">
                 <!-- 左侧排行榜表格 -->
                 <div class="ranking-section">
-                    <h2>口水黄豆排行榜</h2>
+                    <h2>豆力巅峰榜</h2>
                     <table id="ranking-table">
                         <thead>
                             <tr>
                                 <th>豆力等级</th>
                                 <th>用户名</th>
                                 <th>UID</th>
-                                <th>豆力修炼数</th>
+                                <th>豆力修炼值</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -43,10 +43,10 @@
 
                 <!-- 右侧用户查询功能 -->
                 <div class="user-search-section">
-                    <h2>查找用户礼物数量</h2>
+                    <h2>检测豆力修炼值</h2>
                     <form id="search-form">
                         <input type="text" id="user-uid" placeholder="输入用户UID">
-                        <button type="submit">查询</button>
+                        <button type="submit">检测</button>
                     </form>
                     <p id="user-gift-count"></p> <!-- 显示查询结果 -->
                 </div>

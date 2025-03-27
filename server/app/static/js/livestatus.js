@@ -66,6 +66,7 @@ function calculateDays(targetMonth, targetDay) {
 }
 
 function updateCountdown() {
+    const today = new Date();
     const birthdayDays = calculateDays(3, 1); // 3月1日
     const anniversaryDays = calculateDays(7, 16); // 7月16日
     
@@ -73,11 +74,19 @@ function updateCountdown() {
     const anniversaryElement = document.getElementById('anniversaryCountdown');
     
     if (birthdayElement) {
-        birthdayElement.textContent = `距离花礼harei生日还剩${birthdayDays}天`;
+        if (today.getMonth() === 2 && today.getDate() === 1) {
+            birthdayElement.textContent = "花礼harei生日快乐！";
+        } else {
+            birthdayElement.textContent = `距离花礼harei生日还剩${birthdayDays}天`;
+        }
     }
     
     if (anniversaryElement) {
-        anniversaryElement.textContent = `距离花礼harei出道纪念日还剩${anniversaryDays}天`;
+        if (today.getMonth() === 6 && today.getDate() === 16) {
+            anniversaryElement.textContent = "花礼harei出道周年快乐！";
+        } else {
+            anniversaryElement.textContent = `距离花礼harei出道纪念日还剩${anniversaryDays}天`;
+        }
     }
 }
 
@@ -89,3 +98,4 @@ document.addEventListener("DOMContentLoaded", function() {
     // 这里设置每小时更新一次
     setInterval(updateCountdown, 1000 * 60 * 60);
 });
+

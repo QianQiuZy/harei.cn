@@ -104,8 +104,8 @@ h1 {
     display: flex;
     flex-direction: column;
     align-items: center;
-    z-index: 1; /* 确保主内容在其他元素之上 */
-    position: relative; /* 相对定位，确保内容可以正常显示 */
+    z-index: 1;
+    position: relative; /* 为了让子元素相对于父容器定位 */
 }
 
 .status-box {
@@ -117,6 +117,57 @@ h1 {
     font-weight: bold;
     margin-left: 8px;
     box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.beian {
+    position: absolute; /* 使用绝对定位，基于父容器（main-content） */
+    right: 10px; /* 距离父容器右侧10px */
+    bottom: 10px; /* 距离父容器底部10px */
+    text-align: center;
+    font-size: 12px; /* 根据需要调整字体大小 */
+}
+
+.countdowndate{
+    font-size: 12px; /* 根据需要调整字号 */
+    color: #333; /* 根据背景调整颜色 */
+    margin-top: 5px; /* 控制与图片的间距 */
+    margin-left: 8px;
+    position: relative;
+    display: inline-block;
+    cursor: pointer;
+    padding: 5px 10px;
+    background-color: white;
+    border-radius:8px;
+    font-weight: bold;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+    font-family: 'Child Fun Sans Demo', cursive; /* 更文雅的字体 */
+}
+
+.countdown-text{
+    font-size: 20px; /* 根据需要调整字号 */
+    color: #333; /* 根据背景调整颜色 */
+    margin-top: 5px; /* 控制与图片的间距 */
+    font-family: 'Child Fun Sans Demo', cursive; /* 更文雅的字体 */
+}
+
+.countdowndate-content{
+    display: none;
+    position: absolute;
+    z-index: 999;
+    top: 120%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 400px;
+    padding: 5px;
+    text-align: center;
+    border-radius:25px;
+    background-color: white;
+    box-shadow:0 2px 5px rgba(0,0,0,1);
+    font-family: 'Child Fun Sans Demo', cursive; /* 更文雅的字体 */
+}
+
+.countdowndate:hover .countdowndate-content{
+    display: block;
 }
 
 .download-button {

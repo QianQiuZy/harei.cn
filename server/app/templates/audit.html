@@ -31,10 +31,10 @@
                     {% for chat in chat_data %}
                         <div id="chat-{{ chat.id }}" class="chat-box" style="display: none;">
                             <h2>{{ chat.date }}</h2>
-                            <pre class="chatmsg">
-                                {% set formatted_msg = chat.msg | replace("{{", "<span class='hidden-text'>") | replace("}}", "</span>") %}
-                                {{ formatted_msg | safe }}
-                            </pre>
+                                <pre class="chatmsg">
+                                    {% set formatted_msg = chat.msg | replace("{{", "<span class='hidden-text'>") | replace("}}", "</span>") %}
+                                    {{ formatted_msg | safe }}
+                                </pre>
                             
                             <!-- 遍历并显示所有与该消息关联的图片 -->
                             {% for image_url in chat.images %}

@@ -2,7 +2,7 @@
     // 配置项
     const BIRTHDAY = "03-01"; // 修改为她的生日（月-日）
     const GRAVITY = 0.00002; // 重力加速度（每毫秒）
-    const MOBILE_HORIZ_ACCEL = 0.00001; // 手机左右重力加速度
+    const MOBILE_HORIZ_ACCEL = 0.000003; // 手机左右重力加速度
 
     // 判断是否为生日当天
     const now = new Date();

@@ -10,7 +10,7 @@ class GiftService:
         return GiftRanking.update_or_create(user_uid=user_uid, username=username, gift_count=gift_count)
 
     @staticmethod
-    def get_gift_ranking(limit=10):
+    def get_gift_ranking(limit=20):
         return GiftRanking.query.order_by(GiftRanking.gift_count.desc()).limit(limit).all()
 
     @staticmethod

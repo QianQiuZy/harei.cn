@@ -15,7 +15,7 @@ def fetch_live_status():
         "Accept": "application/json",
         "Accept-Encoding": "gzip, deflate, br",
         "Accept-Language": "zh-CN,zh;q=0.9",
-        "Cookie": "*"  # 只需要cookie内的SESSDATA项发请求即可，不需要其他项
+        "Cookie": "SESSDATA=5169bcdb%2C1745891878%2C2c3e1%2Aa1CjC2zCht6fNHSd1pbJlyCcadQOCBILpENiQ1HCMeR98dabTfNqTkAMM6cVs5MUXuV30SVjBUUUlNd3V5LWxEQk5FUzhzYWF5WFExUzVRMHV0MzhXUUJxMzBwN2lxTHVVNERyZTFOTXR0QjFwbTRjZ20wd2duZ09XakxXT0xlTm52SXJUUVhwNW5RIIEC;"
     }
     response = requests.get(url, headers=headers)
     response.raise_for_status()
@@ -27,7 +27,7 @@ def fetch_live_status():
 # 定时器，每隔三分钟调用一次
 def schedule_fetch_live_status():
     fetch_live_status()
-    threading.Timer(180, schedule_fetch_live_status).start()  # 180秒即3分钟
+    threading.Timer(60, schedule_fetch_live_status).start()  # 180秒即3分钟
 
 # 启动定时器
 schedule_fetch_live_status()
