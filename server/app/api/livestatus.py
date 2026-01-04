@@ -15,7 +15,7 @@ def fetch_live_status():
         "Accept": "application/json",
         "Accept-Encoding": "gzip, deflate, br",
         "Accept-Language": "zh-CN,zh;q=0.9",
-        "Cookie": "SESSDATA=5169bcdb%2C1745891878%2C2c3e1%2Aa1CjC2zCht6fNHSd1pbJlyCcadQOCBILpENiQ1HCMeR98dabTfNqTkAMM6cVs5MUXuV30SVjBUUUlNd3V5LWxEQk5FUzhzYWF5WFExUzVRMHV0MzhXUUJxMzBwN2lxTHVVNERyZTFOTXR0QjFwbTRjZ20wd2duZ09XakxXT0xlTm52SXJUUVhwNW5RIIEC;"
+        "Cookies": "SESSDATA=700a7692%2C1780578166%2Cef9be%2Ac2CjAqpC_JUQlMYu6PjAI788SKiKwo_06BHdJXpIIlHx4jY89Zrng1LBodVZApmYhYscMSVm44S0F4SEpPc0kyczlQYjZKY2lfbGoxTUVzd2RNZk9SVWdzSTBSd3NmdGFBcXVURE9ReHVMODZPZkxPeE5kbWF0MG9QRHRFeHUteUE0eERoamoyZk1nIIEC"
     }
     response = requests.get(url, headers=headers)
     response.raise_for_status()
@@ -24,10 +24,9 @@ def fetch_live_status():
     live_status['status'] = data.get("live_status", 0)
     live_status['live_time'] = data.get("live_time") if live_status['status'] == 1 else None
 
-# 定时器，每隔三分钟调用一次
 def schedule_fetch_live_status():
     fetch_live_status()
-    threading.Timer(60, schedule_fetch_live_status).start()  # 180秒即3分钟
+    threading.Timer(30, schedule_fetch_live_status).start()  # 180秒即3分钟
 
 # 启动定时器
 schedule_fetch_live_status()

@@ -23,7 +23,7 @@
 #          佛曰:
 #                  写字楼里写字间，写字间里程序员；
 #                  程序人员写程序，又拿程序换酒钱。
-#                  酒醒只在网上坐，酒醉还来网下眠；
+#                  酒醒只在网s坐，酒醉还来网下眠；
 #                  酒醉酒醒日复日，网上网下年复年。
 #                  但愿老死电脑间，不愿鞠躬老板前；
 #                  奔驰宝马贵者趣，公交自行程序员。
@@ -40,6 +40,8 @@ from flask import (
     send_from_directory,
 )
 import os
+import threading
+import asyncio
 from werkzeug.security import check_password_hash, generate_password_hash
 from app import create_app
 from app.services.message_service import MessageService
@@ -47,7 +49,7 @@ from app.services.images_service import ImageService
 from app.services.music_service import MusicService
 from app.api.livestatus import live_status
 from app.services.gift_service import GiftService
-from xml.etree import ElementTree as ET
+from app.services.tag_service import TagService
 
 # app = Flask(__name__)  这里用工厂模式，所以在__init__.py中已经创建了app
 app = create_app()
@@ -97,6 +99,7 @@ def login():
 def upload():
     # 获取留言文本
     message_text = request.form.get("message")
+    tag = request.form.get("tag")
     files = request.files  # 获取上传的文件
 
     # 处理文本
@@ -106,9 +109,8 @@ def upload():
     # 创建并保存留言
     guest_id = "guest123"  # 假设是固定的访客ID，可以根据具体需求动态生成
     new_message = MessageService.create_message(
-        guest_id=guest_id, message_text=message_text
+        guest_id=guest_id, message_text=message_text,tag=tag
     )
-    print(f"Message saved successfully with ID: {new_message.message_id}")
 
     uploaded_image_paths = []
 
@@ -144,6 +146,7 @@ def upload():
     return jsonify({
         "success": True,
         "message_id": new_message.message_id,
+        "tag": tag,
         "uploaded_images": uploaded_image_paths
     })
 
@@ -190,6 +193,7 @@ def audit():
                 "date": msg.created_at,
                 "msg": msg.message_text,
                 "title": msg.message_text[:20],  # 使用消息内容的前 20 个字符作为标题
+                "tag": msg.tag,
                 "images": image_urls,  # 保存所有图片路径
             }
         )
@@ -245,6 +249,7 @@ def message():
                 "date": msg.created_at,
                 "msg": msg.message_text,
                 "title": msg.message_text[:20],  # 使用消息内容的前 20 个字符作为标题
+                "tag": msg.tag,
                 "images": image_urls,  # 保存所有图片路径
             }
         )
@@ -330,38 +335,6 @@ def add_music():
 def get_live_status():
     return jsonify(live_status)
 
-@app.route('/upload-gift-xml', methods=['POST'])
-def upload_gift_xml():
-    xml_file = request.files.get('xml_file')
-    if not xml_file:
-        return jsonify({"success": False, "error": "XML file is required."}), 400
-
-    try:
-        tree = ET.parse(xml_file)
-        root = tree.getroot()
-        gift_data = {}
-
-        # 遍历礼物节点
-        for gift in root.findall('.//gift[@giftname="口水黄豆"]'):
-            user_uid = gift.get('uid')
-            username = gift.get('user')
-            gift_count = int(gift.get('giftcount', 0))
-
-            if user_uid and username:
-                if user_uid in gift_data:
-                    gift_data[user_uid]["gift_count"] += gift_count
-                else:
-                    gift_data[user_uid] = {"username": username, "gift_count": gift_count}
-
-        # 更新数据库中的礼物记录和用户名
-        for user_uid, data in gift_data.items():
-            GiftService.update_or_create(user_uid, data["username"], data["gift_count"])
-
-        return jsonify({"success": True, "message": "Gift data uploaded successfully"}), 200
-
-    except ET.ParseError:
-        return jsonify({"success": False, "error": "Invalid XML format"}), 400
-    
 @app.route('/gift-ranking', methods=['GET'])
 def get_gift_ranking():
     limit = request.args.get('limit', default=20, type=int)
@@ -390,15 +363,34 @@ def get_gift_count(user_uid):
         
     return jsonify(response_data), 200
 
-@app.route('/giftrank')
-def giftrank():
-    if not session.get("logged_in"):
-        return redirect(url_for("login"))
-    return render_template("giftrank.html")
-
 @app.route('/gift')
 def gift():
     return render_template("gift.html")
 
+@app.route('/tag', methods=['GET', 'POST'])
+def manage_tags():
+    if not session.get("logged_in"):
+        return redirect(url_for("login"))
+    if request.method == "POST":
+        action = request.form.get("action")
+        tag = request.form.get("tag")
+        success = False
+        if action == "add" and tag:
+            success = TagService.add_tag(tag) is not None
+        elif action == "delete" and tag:
+            success = TagService.delete_tag(tag)
+        return jsonify({"success": success})
+    else:
+        tags = TagService.get_all_tags()
+        return render_template("tag.html", tags=tags)
+
+@app.route('/get_tags', methods=['GET'])
+def get_tags():
+    from app.services.tag_service import TagService
+    tags = TagService.get_all_tags()
+    # 返回 [{"tag_name": "xxx"}, ...] 格式
+    tag_list = [{"tag_name": tag.tag_name} for tag in tags]
+    return jsonify(tag_list)
+    
 if __name__ == "__main__":
     app.run(port=5000)

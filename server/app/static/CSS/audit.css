@@ -1,103 +1,151 @@
 /* static/CSS/audit.css */
 
-/* 审核按钮样式 */
-.action-buttons {
-    position: absolute;
-    bottom: 20px;
-    right: 20px;
-    display: flex;
-    gap: 15px;
+/* 筛选下拉框 */
+.filter-bar {
+    margin-bottom: 15px;
 }
-
-.action-buttons form {
-    display: inline;
-}
-
-.action-buttons button {
-    padding: 10px 20px;
-    border: none;
-    border-radius: 5px;
+.filter-bar label {
     font-size: 16px;
-    cursor: pointer;
-    transition: background-color 0.3s;
+    margin-right: 10px;
+}
+.filter-bar select {
+    padding: 5px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
 }
 
-.action-buttons .approve-button {
-    background-color: #2ecc71;
-    color: white;
+/* 左侧会话列表 */
+.chat-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+.chat-list li {
+    margin-bottom: 8px;
+}
+.chat-link {
+    text-decoration: none;
+    color: #333;
+}
+.chat-link.read {
+    color: #999; /* 已读颜色 */
 }
 
-.action-buttons .approve-button:hover {
-    background-color: #27ae60;
-}
-
-.action-buttons .reject-button {
-    background-color: #e74c3c;
-    color: white;
-}
-
-.action-buttons .reject-button:hover {
-    background-color: #c0392b;
-}
-
-/* 确保 chat-content 位置相对，以便按钮定位 */
+/* 右侧会话内容 */
 .chat-content {
     position: relative;
 }
 
-/* 图片缩略图样式保持一致 */
-.thumbnail {
-    width: 100px; /* 设置缩略图宽度 */
-    cursor: pointer; /* 鼠标悬停时显示为手指 */
+/* 消息内容，自动换行 */
+.chatmsg {
+    white-space: pre-wrap;
+    word-break: break-all;
     margin-bottom: 10px;
+}
+
+/* 缩略图容器 */
+.thumbnail-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+.thumbnail {
+    width: 80px;
+    height: 80px;
+    object-fit: cover;
+    vertical-align: top;
+    border: 1px solid rgba(0,0,0,0.1); /* 极淡灰色边框 */
     border-radius: 5px;
+    cursor: pointer;
 }
 
-/* 全图样式 */
-.full-image {
-    max-width: 100%; /* 全图最大宽度 */
-    border-radius: 10px; /* 圆角效果 */
-    margin-bottom: 10px; /* 下边距 */
+/* 调整审核按钮样式（取消绝对定位） */
+.action-buttons {
+    margin-top: 10px;
+    display: flex;
+    gap: 15px;
+}
+.action-buttons form {
+    display: inline;
+}
+.action-buttons button {
+    padding: 8px 15px;
+    border: none;
+    border-radius: 5px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+.approve-button {
+    background-color: #2ecc71;
+    color: #fff;
+}
+.approve-button:hover {
+    background-color: #27ae60;
+}
+.reject-button {
+    background-color: #e74c3c;
+    color: #fff;
+}
+.reject-button:hover {
+    background-color: #c0392b;
 }
 
+/* 弹窗样式 */
 .image-modal {
     display: none;
-    position: absolute; /* 更改为绝对定位 */
+    position: fixed; /* 改为 fixed */
     top: 0;
-    right: 0; /* 使其在右侧 */
-    width: 100%; /* 根据需要调整宽度 */
-    height: 100%; /* 覆盖整个右侧栏 */
-    background-color: rgba(0, 0, 0, 0.8); /* 半透明黑色背景 */
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.8);
     justify-content: center;
     align-items: center;
-    z-index: 1000; /* 确保模态框在其他元素之上 */
+    z-index: 1000;
+}
+.image-modal .modal-content {
+    position: relative;
+    background: #fff;
+    padding: 10px;
+    border-radius: 5px;
+    text-align: center;
 }
 .image-modal img {
-    max-width: none; /* 允许任意大小 */
-    max-height: none; /* 允许任意高度 */
-    transition: transform 0.2s; /* 添加平滑缩放效果 */
-    cursor: move; /* 添加移动光标 */
+    max-width: 90vw;
+    max-height: 80vh;
+    margin-bottom: 10px;
+    border: 1px solid rgba(0,0,0,0.2); /* 淡灰色边缘 */
 }
-
-.chatmsg {
-    white-space: pre-wrap; 
-    word-wrap: break-word; 
-    overflow-wrap: break-word;
+.nav-btn {
+    margin: 0 5px;
+    padding: 5px 10px;
+    font-size: 14px;
+    cursor: pointer;
+    border: none;
+    border-radius: 3px;
+    background-color: #333;
+    color: #fff;
+    transition: background-color 0.3s;
+}
+.nav-btn:hover {
+    background-color: #555;
 }
 
 /* 隐藏文本样式 */
 .hidden-text {
-    display: inline-block;
     background-color: black;
     color: black;
     cursor: pointer;
     padding: 0 4px;
-    margin: 0; /* 防止出现意外的间距 */
-    white-space: nowrap; /* 禁止换行 */
+    word-break: break-all;
+}
+.hidden-text:hover {
+    color: white;
 }
 
-/* 当鼠标悬停时，显示文本 */
-.hidden-text:hover {
-    background-color: black;
-    color: white;
+/* 调整图片排布，确保顶部对齐 */
+.thumbnail-container img {
+    vertical-align: top;
 }

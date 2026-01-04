@@ -16,33 +16,45 @@
     <div class="main-content">
         <div class="profile-section">
             <div class="container">
+                <!-- 新增TAG筛选下拉框 -->
+                <div class="filter-bar">
+                    <label for="filter-tag">筛选标签：</label>
+                    <select id="filter-tag">
+                        <option value="">全部</option>
+                    </select>
+                </div>
                 <!-- 左侧会话列表 -->
                 <div class="chat-list">
                     {% for chat in chat_data %}
-                        <li><a href="#" class="chat-link" data-id="{{ chat.id }}">{{ chat.id }}-{{chat.date}}</a></li>
+                        <li><a href="#" class="chat-link" data-id="{{ chat.id }}">{{ chat.id }} - {{ chat.date }}</a></li>
                     {% endfor %}
                 </div>
         
                 <!-- 右侧会话内容 -->
                 <div class="chat-content">
                     {% for chat in chat_data %}
-                        <div id="chat-{{ chat.id }}" class="chat-box" style="display: none;">
+                        <div id="chat-{{ chat.id }}" class="chat-box" data-tag="{{ chat.tag }}" style="display: none;">
                             <h2>{{ chat.date }}</h2>
                             <pre class="chatmsg">
-                                {% set formatted_msg = chat.msg | replace("{{", "<span class='hidden-text'>") | replace("}}", "</span>") %}
-                                {{ formatted_msg | safe }}
+{% set formatted_msg = chat.msg | replace("{{", "<span class='hidden-text'>") | replace("}}", "</span>") %}
+{{ formatted_msg | safe }}
                             </pre>
-                            
-                            <!-- 遍历并显示所有与该消息关联的图片 -->
-                            {% for image_url in chat.images %}
-                                <img src="{{ image_url }}" alt="缩略图" class="thumbnail" data-full-image="{{ image_url }}">
-                            {% endfor %}
-                            <!-- 归档按钮 -->
+                            <!-- 遍历显示留言关联的图片 -->
+                            <div class="thumbnail-container">
+                                {% for image_url in chat.images %}
+                                    <img src="{{ image_url }}" alt="缩略图" class="thumbnail" data-full-image="{{ image_url }}">
+                                {% endfor %}
+                            </div>
                         </div>
                     {% endfor %}
-                    <!-- 模态框 -->
+                    <!-- 图片查看弹窗，增加上一张、下一张和关闭按钮 -->
                     <div class="image-modal" style="display: none;">
-                        <img id="modal-img" src="" alt="Large Image" >
+                        <div class="modal-content">
+                            <button id="prev-btn" class="nav-btn">上一张</button>
+                            <button id="next-btn" class="nav-btn">下一张</button>
+                            <button id="close-btn" class="nav-btn">关闭</button>
+                            <img id="modal-img" src="" alt="Large Image">
+                        </div>
                     </div>
                 </div>
             </div>

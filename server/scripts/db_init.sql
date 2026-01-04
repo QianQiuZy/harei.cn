@@ -5,6 +5,7 @@ CREATE TABLE messages (
     message_id INT PRIMARY KEY AUTO_INCREMENT, -- 留言唯一ID
     guest_id VARCHAR(255) NOT NULL, -- 用于区分不同访客的唯一标识符
     message_text TEXT, -- 留言的文字内容
+    tag VARCHAR(255) DEFAULT NULL,
     status ENUM('pending', 'approved', 'archived') DEFAULT 'pending', -- 留言状态
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP -- 留言创建时间
 );
@@ -30,4 +31,10 @@ CREATE TABLE gift_ranking (
     ADD COLUMN username VARCHAR(255) DEFAULT NULL;
     user_uid VARCHAR(255) PRIMARY KEY,       -- 用户唯一UID
     gift_count INT DEFAULT 0                 -- 口水黄豆礼物的数量
+);
+
+CREATE TABLE tags (
+    tag_id INT PRIMARY KEY AUTO_INCREMENT,
+    tag_name VARCHAR(255) NOT NULL UNIQUE,  -- TAG名称，唯一
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );

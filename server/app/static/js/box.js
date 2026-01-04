@@ -1,99 +1,119 @@
 const imageInput = document.getElementById("image-input");
 const addFilesButton = document.getElementById("add-files-button");
 const thumbnailContainer = document.getElementById("thumbnail-container");
+const tagSelect = document.getElementById("tag-select");
+const uploadProgressContainer = document.getElementById("upload-progress-container");
+const uploadProgress = document.getElementById("upload-progress");
 let selectedImages = [];
 
-// 点击"添加文件"按钮时触发文件选择
+// 获取后端TAG数据，假设接口为 /get_tags 返回 JSON 数组 [{tag_name:"xxx"},...]
+function loadTags() {
+  fetch("/get_tags")
+    .then(response => response.json())
+    .then(data => {
+      data.forEach(tagObj => {
+        const option = document.createElement("option");
+        option.value = tagObj.tag_name;
+        option.textContent = tagObj.tag_name;
+        tagSelect.appendChild(option);
+      });
+    })
+    .catch(err => console.error("获取标签失败:", err));
+}
+loadTags();
+
+// 添加图片按钮点击
 addFilesButton.addEventListener("click", function () {
   imageInput.click();
 });
 
-// 监听图片选择事件
+// 监听图片选择事件，显示缩略图
 imageInput.addEventListener("change", function (event) {
   const files = event.target.files;
   for (let i = 0; i < files.length; i++) {
     const file = files[i];
     selectedImages.push(file);
-
-    // 创建 FileReader 对象，读取图片并显示缩略图
     const reader = new FileReader();
     reader.onload = function (e) {
-      // 创建缩略图元素
       const thumbnail = document.createElement("div");
       thumbnail.classList.add("thumbnail");
-
       const img = document.createElement("img");
       img.src = e.target.result;
-
       const removeBtn = document.createElement("button");
       removeBtn.classList.add("remove-btn");
       removeBtn.textContent = "×";
-
-      // 点击 "×" 按钮时移除图片
       removeBtn.addEventListener("click", function () {
-        thumbnail.remove(); // 从DOM中移除缩略图
-        selectedImages = selectedImages.filter((f) => f !== file); // 从selectedImages中移除
+        thumbnail.remove();
+        selectedImages = selectedImages.filter(f => f !== file);
       });
-
       thumbnail.appendChild(img);
       thumbnail.appendChild(removeBtn);
       thumbnailContainer.appendChild(thumbnail);
     };
-
-    reader.readAsDataURL(file); // 读取图片文件
+    reader.readAsDataURL(file);
   }
 });
 
-document
-  .getElementById("submit-button")
-  .addEventListener("click", function () {
-    const message = document.getElementById("message-input").value;
+// 使用 XMLHttpRequest 实现上传进度
+document.getElementById("submit-button").addEventListener("click", function () {
+  const message = document.getElementById("message-input").value;
+  const tag = tagSelect.value;
 
-    if (message.trim() !== "" || selectedImages.length > 0) {
-      const formData = new FormData();
-      formData.append("message", message); // 添加文本消息
-      // 添加多张图片
-      selectedImages.forEach((image, index) => {
-        formData.append(`image_${index}`, image);
-      });
+  // 如果未选择TAG，则阻止提交
+  if (!tag) {
+    alert("请选择一个TAG！");
+    return;
+  }
 
-      fetch("/upload", {
-        method: "POST",
-        body: formData,
-      })
-        .then((response) => {
-          // 检查响应是否为JSON
-          if (!response.ok) {
-            return response.json().then((data) => Promise.reject(data));
-          }
-          return response.json();
-        })
-        .then((data) => {
-          if (data.success) {
-            // 显示模态框
-            const modal = document.getElementById("success-modal");
-            modal.style.display = "block";
-            
-            // 清空输入框和缩略图
-            document.getElementById("message-input").value = "";
-            thumbnailContainer.innerHTML = ""; // 清空缩略图
-            imageInput.value = ""; // 重置文件输入框
-            selectedImages = []; // 清空已选图片
-        
-            // 2秒后隐藏模态框并刷新页面
-            setTimeout(() => {
-              modal.style.display = "none";
-              window.location.reload(); // 刷新页面
-            }, 2000); // 2秒后自动刷新
-          }
-        })
-        
-        
-        .catch((error) => {
-          console.error("Error:", error);
-          alert("提交失败: " + (error.error || "未知错误"));
-        });
-    } else {
-      alert("请填写你的内容或选择至少一张图片!");
-    }
-  });
+  if (message.trim() !== "" || selectedImages.length > 0) {
+    const formData = new FormData();
+    formData.append("message", message);
+    formData.append("tag", tag);
+    selectedImages.forEach((image, index) => {
+      formData.append(`image_${index}`, image);
+    });
+
+    const xhr = new XMLHttpRequest();
+    xhr.open("POST", "/upload", true);
+
+    // 显示进度条
+    uploadProgressContainer.style.display = "block";
+
+    xhr.upload.onprogress = function (e) {
+      if (e.lengthComputable) {
+        const percentComplete = (e.loaded / e.total) * 100;
+        uploadProgress.value = percentComplete;
+      }
+    };
+
+    xhr.onload = function () {
+      if (xhr.status === 200) {
+        const data = JSON.parse(xhr.responseText);
+        if (data.success) {
+          const modal = document.getElementById("success-modal");
+          modal.style.display = "block";
+          document.getElementById("message-input").value = "";
+          thumbnailContainer.innerHTML = "";
+          imageInput.value = "";
+          selectedImages = [];
+          setTimeout(() => {
+            modal.style.display = "none";
+            window.location.reload();
+          }, 2000);
+        }
+      } else {
+        alert("提交失败: " + xhr.statusText);
+      }
+      uploadProgressContainer.style.display = "none";
+    };
+
+    xhr.onerror = function () {
+      alert("上传过程中发生错误");
+      uploadProgressContainer.style.display = "none";
+    };
+
+    xhr.send(formData);
+  } else {
+    alert("请填写内容或选择至少一张图片!");
+  }
+});

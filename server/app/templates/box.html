@@ -7,50 +7,11 @@
     <link rel="icon" href="https://qianqiuzy-1313476938.cos.ap-shanghai.myqcloud.com/16x16.png" sizes="16x16" type="image/png">
     <link rel="stylesheet" href="{{ url_for('static', filename='CSS/sidebar.css') }}"/>
     <link rel="stylesheet" href="{{ url_for('static', filename='CSS/box.css') }}"/>
-    <style>
-      .thumbnail-container {
-        display: flex;
-        flex-wrap: wrap;
-        margin-top: 10px;
-      }
-
-      .thumbnail {
-        position: relative;
-        display: inline-block;
-        margin-right: 10px;
-        margin-bottom: 10px;
-      }
-
-      .thumbnail img {
-        max-width: 100px;
-        max-height: 100px;
-        border-radius: 5px;
-      }
-
-      .thumbnail .remove-btn {
-        position: absolute;
-        top: 0;
-        right: 0;
-        background-color: rgba(255, 0, 0, 0.7);
-        color: white;
-        border: none;
-        border-radius: 50%;
-        width: 20px;
-        height: 20px;
-        text-align: center;
-        cursor: pointer;
-      }
-    </style>
     <title>花礼的提问箱</title>
   </head>
   <body>
     <div id="overlay" class="overlay"></div>
-    <div
-      class="background-layer"
-      style="
-        background-image: url('https://qianqiuzy-1313476938.cos.ap-shanghai.myqcloud.com/harei-back.jpg');
-      "
-    ></div>
+    <div class="background-layer" style="background-image: url('https://qianqiuzy-1313476938.cos.ap-shanghai.myqcloud.com/harei-back.jpg');"></div>
     <div id="sidebar-container"></div>
     <div class="main-content">
       <div class="profile-section">
@@ -58,21 +19,24 @@
           <img id="avatar" src="https://qianqiuzy-1313476938.cos.ap-shanghai.myqcloud.com/avatar.jpg" alt="花礼的头像" />
           <h1>花礼harei的提问箱</h1>
         </div>
-        <textarea
-          id="message-input"
-          placeholder="请将你想要告诉花礼的小秘密说出来吧~"
-        ></textarea>
-        <input
-          type="file"
-          id="image-input"
-          accept="image/*"
-          multiple
-          style="display: none"
-        />
-        <button id="add-files-button">添加图片</button>
-        <!-- 添加文件按钮 -->
+        <!-- 文本输入框 -->
+        <textarea id="message-input" placeholder="隐藏内容编写：&#123;&#123;这是隐藏内容&#125;&#125;"></textarea>
+        <!-- 新增TAG下拉选择框 -->
+        <select id="tag-select">
+          <option value="">选择TAG</option>
+        </select>
+        <!-- 隐藏的文件输入 -->
+        <input type="file" id="image-input" accept="image/*" multiple style="display: none" />
+        <button id="add-files-button" class="btn">添加图片</button>
+        <div class ="hidden-text">{{这是隐藏内容}}</div>
+        <!-- 缩略图容器 -->
         <div class="thumbnail-container" id="thumbnail-container"></div>
-        <button id="submit-button">提交</button>
+        <!-- 提交按钮 -->
+        <button id="submit-button" class="btn">提交</button>
+        <!-- 上传进度条 -->
+        <div id="upload-progress-container" class="progress-container" style="display: none;">
+          <progress id="upload-progress" value="0" max="100"></progress>
+        </div>
         <div id="success-modal" class="modal" style="display: none;">
           <div class="modal-content">
             <p>提交成功!</p>
