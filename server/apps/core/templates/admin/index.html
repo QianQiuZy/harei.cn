@@ -1,0 +1,35 @@
+{% extends "admin/index.html" %}
+
+{% block content %}
+  <div class="module">
+    <h2>运营概览</h2>
+    <div style="display: flex; flex-wrap: wrap; gap: 16px;">
+      <div style="min-width: 200px; padding: 12px; background: #f8fafc; border-radius: 8px;">
+        <strong>提问箱稿件</strong>
+        <div>有效：{{ dashboard.active_count }}</div>
+        <div>历史：{{ dashboard.archived_count }}</div>
+        <div>已删除：{{ dashboard.deleted_count }}</div>
+      </div>
+      <div style="min-width: 200px; padding: 12px; background: #f8fafc; border-radius: 8px;">
+        <strong>舰长情况（月度）</strong>
+        <div>本月新增：{{ dashboard.captain_count }}</div>
+        {% if dashboard.latest_captain %}
+          <div>最近上舰：{{ dashboard.latest_captain.nickname }}</div>
+        {% else %}
+          <div>暂无记录</div>
+        {% endif %}
+      </div>
+      <div style="min-width: 200px; padding: 12px; background: #f8fafc; border-radius: 8px;">
+        <strong>热门标签</strong>
+        <ul style="margin: 8px 0 0 16px;">
+          {% for item in dashboard.tags|slice:":5" %}
+            <li>{{ item.tag }} ({{ item.total }})</li>
+          {% empty %}
+            <li>暂无标签</li>
+          {% endfor %}
+        </ul>
+      </div>
+    </div>
+  </div>
+  {{ block.super }}
+{% endblock %}

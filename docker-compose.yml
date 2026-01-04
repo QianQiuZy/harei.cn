@@ -1,0 +1,29 @@
+version: "3.9"
+
+services:
+  backend:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile.backend
+    env_file: .env
+    volumes:
+      - ./server/uploads:/app/server/uploads
+    depends_on:
+      - db
+    ports:
+      - "8000:8000"
+
+  db:
+    image: mysql:8.4
+    environment:
+      MYSQL_DATABASE: ${DB_NAME:-harei}
+      MYSQL_USER: ${DB_USER:-harei}
+      MYSQL_PASSWORD: ${DB_PASSWORD:-harei}
+      MYSQL_ROOT_PASSWORD: ${DB_ROOT_PASSWORD:-harei_root}
+    ports:
+      - "3306:3306"
+    volumes:
+      - db_data:/var/lib/mysql
+
+volumes:
+  db_data:
