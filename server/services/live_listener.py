@@ -5,8 +5,11 @@ import asyncio
 import os
 from dataclasses import dataclass
 
-import blivedm
-from blivedm import BaseHandler
+try:
+    import blivedm
+    from blivedm import BaseHandler
+except ModuleNotFoundError as exc:
+    raise SystemExit("未检测到 blivedm，请先手动安装该依赖。") from exc
 
 
 @dataclass

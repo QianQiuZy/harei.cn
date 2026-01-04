@@ -2,5 +2,4 @@ django>=5.0.8
 pillow>=10.4.0
 pymysql>=1.1.1
 python-dotenv>=1.0.1
-blivedm>=1.5.8
 gunicorn>=22.0.0

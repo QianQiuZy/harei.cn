@@ -4,6 +4,9 @@
 
 ## 运行方式
 ```bash
+# 先手动安装 blivedm（当前不纳入 requirements.txt）
+pip install blivedm
+
 export BILI_ROOM_ID=123456
 export BILI_IDENTITY_CODE=your_identity_code
 python server/services/live_listener.py
