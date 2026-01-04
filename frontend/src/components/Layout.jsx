@@ -2,9 +2,9 @@ import { useEffect, useMemo, useState } from 'react';
 import { Link, NavLink } from 'react-router-dom';
 
 const BACKGROUNDS = [
-  '/static/backgrounds/slide-1.svg',
-  '/static/backgrounds/slide-2.svg',
-  '/static/backgrounds/slide-3.svg'
+  '/static/backgrounds/slide-1.jpg',
+  '/static/backgrounds/slide-2.jpg',
+  '/static/backgrounds/slide-3.jpg'
 ];
 
 export default function Layout({ children }) {

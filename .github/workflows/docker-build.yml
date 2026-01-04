@@ -18,10 +18,3 @@ jobs:
           file: docker/Dockerfile.backend
           push: false
           tags: harei-backend:latest
-      - name: Build frontend image
-        uses: docker/build-push-action@v5
-        with:
-          context: .
-          file: docker/Dockerfile.frontend
-          push: false
-          tags: harei-frontend:latest
