@@ -15,22 +15,38 @@ PPS：本来想写网站里但是觉得无所谓（？）别乱搞，乱搞会�
 
 PPPS：感谢三位开发大佬的付出
 
-### 运行步骤（如果你想自己调试我默认会python的喵~）
+### 部署方式（直接部署）
 
 1. 克隆仓库：
    ```bash
    git clone https://github.com/QianQiuZy/harei.cn
    ```
 
-2. 配置环境：
+2. 后端依赖安装：
    ```bash
-   pip install pdm
-   pdm install
+   pip install -r server/requirements.txt
    ```
 
-4. 运作项目：
+3. 配置环境变量：
    ```bash
-   pdm run server/run.py
+   cp .env.example .env
+   ```
+
+4. 初始化数据库：
+   ```bash
+   python server/manage.py migrate
+   ```
+
+5. 构建前端：
+   ```bash
+   cd frontend
+   npm install
+   npm run build
+   ```
+
+6. 启动后端服务：
+   ```bash
+   python server/manage.py runserver 0.0.0.0:8000
    ```
 
 ### 作者主页
