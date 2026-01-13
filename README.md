@@ -1,5 +1,9 @@
 # 花礼harei的网站
 
+> 此网站已完全重构，此项目已废弃，仅保留记录
+> 重构后前端：`https://github.com/qianqiuzy/harei-frontend`
+> 重构后后端：`https://github.com/qianqiuzy/harei-backend`
+
 ### 说明
 心血来潮的一个小项目，求开发求开发求开发，缺人缺人缺人，想加入开发B站私聊我即可。
 
